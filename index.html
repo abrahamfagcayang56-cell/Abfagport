@@ -11,8 +11,39 @@
             font-family: 'Segoe UI', sans-serif;
             background: #0a0a0a; /* Dark background */
             color: #b0b0b0; /* Light text */
-            overflow: hidden;
+            overflow-y: hidden; /* FIX: Prevents main body scrollbar from appearing */
         }
+
+        /* ---------------------------------------------------- */
+        /* 🛠️ FIX START: Full-Screen Background Video Styles */
+        /* ---------------------------------------------------- */
+        #bg-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            /* Centers the video */
+            transform: translate(-50%, -50%); 
+            /* Ensures the video covers the entire viewport */
+            min-width: 100vw; 
+            min-height: 100vh;
+            width: auto;
+            height: auto;
+            z-index: -2; /* Placed far behind the content */
+        }
+        
+        #video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Dark semi-transparent overlay */
+            z-index: -1; /* Placed above video, behind content */
+        }
+        /* ---------------------------------------------------- */
+        /* 🛠️ FIX END */
+        /* ---------------------------------------------------- */
+
 
         /* Animations */
         @keyframes fadeIn {
@@ -32,6 +63,8 @@
             width: 100%; height: 65px; background: #0a0a0a;
             display: flex; justify-content: center; align-items: center; gap: 10px; /* Reduced gap for 4 items */
             box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); /* Subtle cyan glow */
+            z-index: 10; /* Ensure nav is on top of page content */
+            position: relative; /* Needed to establish stacking context over fixed video */
         }
         nav a {
             color: #ffffff;
@@ -67,6 +100,7 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
+            position: relative; /* Important for stacking context over fixed video/overlay */
         }
         .active { display: flex; }
 
@@ -401,6 +435,16 @@
     </style>
 </head>
 <body>
+    
+    <iframe 
+      id="bg-video"
+      src="https://www.youtube.com/embed/Jox6R5-rIH0?autoplay=1&mute=1&loop=1&playlist=Jox6R5-rIH0&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1"
+      frameborder="0"
+      allow="autoplay; fullscreen"
+    ></iframe>
+
+    <div id="video-overlay"></div>
+    
     <nav>
         <a id="nav-home" href="#" onclick="showPage('home')">About Me</a>
         <a id="nav-education" href="#" onclick="showPage('education')">Education</a>
@@ -408,9 +452,9 @@
         <a id="nav-family" href="#" onclick="showPage('family')">My Family</a>
     </nav>
 
-    <!-- HOME PAGE (About Me) - Page 1 --><div class="page active" id="home">
+    <div class="page active" id="home">
         <div class="home-content animate-in">
-            <!-- Profile Picture with IMG SRC (Placeholder adjusted to 220x220) --><div class="profile-frame">
+            <div class="profile-frame">
                 <img src="https://lh3.googleusercontent.com/pw/AP1GczMLarLmKtIu8G0mtjFzQz004St1zahjE2bIC5aNdAGtFar61u3PCEKWJIi0G0YCb0m3S3dK43v7fJONy_l5h7mKPUVR9YtNlqDTTifPey_Ix1MX6FY=w2400"
                     alt="Profile Picture"
                     onerror="this.onerror=null; this.src='https://placehold.co/220x220/333333/FFFFFF?text=Error';">
@@ -426,12 +470,12 @@
         </div>
     </div>
 
-    <!-- EDUCATION PAGE - Page 2 --><div class="page" id="education">
+    <div class="page" id="education">
         <div class="page-content-wrapper animate-in">
             <h1>EDUCATIONAL BACKGROUND</h1>
 
             <div class="card-container">
-                <!-- Card 1: Tocucan Elementary School --><div class="edu-card-item">
+                <div class="edu-card-item">
                     <div class="logo-frame-edu">
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczOBToSXJyGegXvEWNIQnYxXYGzw9mLrDhmfRfyufsRXvGoetfl5k_n6TL_3_55Tpv6xNy9uxlqYIj2FzpfI493I97cYqSq5bSMkNyyaDwyJjtvulhs=w2400"
                              alt="Elementary School Logo"
@@ -443,7 +487,7 @@
                     </div>
                 </div>
 
-                <!-- Card 2: Mt. Province General Comprehensive Highschool --><div class="edu-card-item">
+                <div class="edu-card-item">
                     <div class="logo-frame-edu">
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczMO_J83_QeS7bYuztF4-4Z81rtVK8yU1IM1NlE4Dgp4ve6HVdbVju9PBUKMAPQzs48Dq9-4ZAostbJH1IcNnnNinS5MFtkiBeKAVrJeSXAAw-2fsOo=w2400"
                              alt="Junior High School Logo"
@@ -455,7 +499,7 @@
                     </div>
                 </div>
 
-                <!-- Card 3: All Saints Mission School of Mt. Province Inc. --><div class="edu-card-item">
+                <div class="edu-card-item">
                     <div class="logo-frame-edu">
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczO4YqjdjDnJAu4do8Cx6CUWM-thgPbhy3kyISwEoOsXrNXnhBYnPqZJ00-JtRpN7Q1oUR7WbEO8fJPeYCZIZt2iSjkjZsIin2BJdSRkx9VsqAVQwU4=w2400"
                              alt="Senior High School Logo"
@@ -467,7 +511,7 @@
                     </div>
                 </div>
 
-                <!-- Card 4: University of the Cordilleras --><div class="edu-card-item">
+                <div class="edu-card-item">
                     <div class="logo-frame-edu">
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczO5hJlqwuUsm4aSPIA0RB4GUWm5C9j0C7c__CzzH6iAgFrOebx77G5zFDIoE4sVn0S3uEc4LHWs3M7UReseqnkKLZoJSiQ_DSmXeBB77LV4FNN-wto=w2400"
                              alt="University Logo"
@@ -481,18 +525,17 @@
             </div>
         </div>
 
-        <!-- Back and Next Buttons for Education Page --><div class="nav-button-container">
+        <div class="nav-button-container">
             <button class="nav-button nav-button-back" onclick="showPage('home')"><< Back</button>
             <button class="nav-button nav-button-next" onclick="showPage('achievements')">Next >></button>
         </div>
     </div>
 
-    <!-- ACHIEVEMENTS PAGE - Page 3 (STRUCTURE MODIFIED) --><div class="page" id="achievements">
+    <div class="page" id="achievements">
         <div class="page-content-wrapper animate-in">
             <h1>ACHIEVEMENTS</h1>
             
             <div class="card-container"> 
-                <!-- Achievement Card 1: Work Immersion Completion -->
                 <div class="ach-card-item">
                     <div class="ach-image-container">
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczNShOzVvXut_imESgNUOYXEYsJlttTPv8aJ8fQU7dic7-EZ2HAkQyVhpSqY3Z2o9bQPlOungKg_6pbxNlEXB77yUmMPFhasXqnhZPCTn-UfRXWqLto=w2400"
@@ -506,7 +549,6 @@
                     </div>
                 </div>
 
-                <!-- Achievement Card 2: With Honors 2023-2024 -->
                 <div class="ach-card-item">
                     <div class="ach-image-container">
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczPdVnTutu5Y26jI96cIsHbPgLNc0Uno-sPkcBZsyVsPv14Y-fpjW2F1Bl2a--OUIt4FR5O-xHyaNBQ0uRTtqU9aPHjWVOOfAbUJ739B6lYoAyOnqH4=w2400"
@@ -520,7 +562,6 @@
                     </div>
                 </div>
 
-                <!-- Achievement Card 3: With Honors 2024-2025 -->
                 <div class="ach-card-item">
                     <div class="ach-image-container">
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczPOs6CZR9kH9GR_fcmtpq8mwBLVTF-9d1awE1OGSzDTmBMDKTibhA8DKMGeN6OvKBaGOTLpAyrW-bSOVlhfKDkJZBPeSC4ptJuuzasjYXybD9H1RLs=w2400"
@@ -534,7 +575,6 @@
                     </div>
                 </div>
 
-                <!-- Achievement Card 4: Senior High Graduation (Promoted to fill the 4th spot) -->
                 <div class="ach-card-item">
                     <div class="ach-image-container">
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczOBKb1VbZNzFrOo7Nu0WtGHxSJTHncCrpgpO8f7CB24sFG2jvlVwIKUlx8J26Kv-IEUVZU1_0_aonMONC6mj7JPbqUrZKddkR3mDn-cFa33D_NW8hc=w2400"
@@ -550,20 +590,19 @@
             </div>
         </div>
 
-        <!-- Back and Next Buttons for Achievements Page --><div class="nav-button-container">
+        <div class="nav-button-container">
             <button class="nav-button nav-button-back" onclick="showPage('education')"><< Back</button>
             <button class="nav-button nav-button-next" onclick="showPage('family')">Next >></button> 
         </div>
     </div>
 
-    <!-- MY FAMILY PAGE - Page 4 (Updated with placeholder images) --><div class="page" id="family">
+    <div class="page" id="family">
         <h1>MY FAMILY</h1>
         <div class="page-content-wrapper animate-in">
             <div class="card-container" style="justify-content: space-evenly;">
                 
-                <!-- Family Card 1: Embracing my Mother --><div class="family-card-item">
+                <div class="family-card-item">
                     <div class="family-image-container">
-                        <!-- Placeholder updated to 4:3 ratio (320x240) -->
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczMYKsqHNr6vc7Mw3M316Wb6sz6U-ODfwzNR5kbvf7NjarxHT8QAOepjyTfbNI5ooJJy_Lvdet5fVNVlem328rD4CX643lE82hrbJeA-73E4d9ONMCc=w2400"
                              alt="Embracing Mother Placeholder"
                              onerror="this.onerror=null; this.src='https://placehold.co/320x240/77b8ff/333333?text=Error';"
@@ -577,10 +616,9 @@
                     </div>
                 </div>
 
-                <!-- Family Card 2: Shaking my Father's Hand --><div class="family-card-item">
+                <div class="family-card-item">
                     <div class="family-image-container">
-                          <!-- Placeholder updated to 4:3 ratio (320x240) -->
-                          <img src="https://lh3.googleusercontent.com/pw/AP1GczMqL-Ntn39Q5bPpWDpCKIjw72lm5mNX0Pax_ba3MjSXu4r3Z6CxBhItwiSYaXlQ-cmrorPLlfGj2Rn43V8-Hjat6a2NsE6mLtaTuhN9PVsEGw6A8wc=w2400"
+                             <img src="https://lh3.googleusercontent.com/pw/AP1GczMqL-Ntn39Q5bPpWDpCKIjw72lm5mNX0Pax_ba3MjSXu4r3Z6CxBhItwiSYaXlQ-cmrorPLlfGj2Rn43V8-Hjat6a2NsE6mLtaTuhN9PVsEGw6A8wc=w2400"
                              alt="Shaking Father's Hand Placeholder"
                              onerror="this.onerror=null; this.src='https://placehold.co/320x240/38761d/ffffff?text=Error';"
                         >
@@ -593,9 +631,8 @@
                     </div>
                 </div>
 
-                <!-- Family Card 3: A group picture with my Best Friends --><div class="family-card-item">
+                <div class="family-card-item">
                     <div class="family-image-container">
-                        <!-- Placeholder updated to 4:3 ratio (320x240) -->
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczNkVvNhw_M20crUssj9rlFHg7IxHsduuopDugw1tcKUEzB83ZAZTalI-Nn0mKgQBkAXJukim-6HZrCMKDjUSpwuchN18aSSFjtH72MO250rKeqluKY=w2400"
                              alt="Best Friends Group Picture Placeholder"
                              onerror="this.onerror=null; this.src='https://placehold.co/320x240/00FFFF/333333?text=Error';"
@@ -611,7 +648,7 @@
             </div>
         </div>
 
-        <!-- Back Button for Family Page --><div class="nav-button-container">
+        <div class="nav-button-container">
             <button class="nav-button nav-button-back" onclick="showPage('achievements')">Back</button>
         </div>
     </div>
@@ -647,4 +684,3 @@
     </script>
 </body>
 </html>
-
