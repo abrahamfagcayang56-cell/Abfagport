@@ -14,32 +14,54 @@
             overflow-y: hidden; /* Prevents main body scrollbar from appearing */
         }
 
-        /* ---------------------------------------------------- */
-        /* Full-Screen Background Video Styles */
-        /* ---------------------------------------------------- */
-        #bg-video {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            /* Centers the video */
-            transform: translate(-50%, -50%); 
-            /* Ensures the video covers the entire viewport */
-            min-width: 100vw; 
-            min-height: 100vh;
-            width: auto;
-            height: auto;
-            z-index: -2; /* Placed far behind the content */
-        }
-        
-        #video-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7); /* Dark semi-transparent overlay */
-            z-index: -1; /* Placed above video, behind content */
-        }
+/* ---------------------------------------------------- */
+/* Full-Screen Background Video Styles */
+/* ---------------------------------------------------- */
+
+/* New Container: Ensures nothing spills outside the viewport */
+#video-background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* CRITICAL: Hides the oversized edges (like YouTube logo/controls) */
+    z-index: -3; /* Place behind overlay and content */
+}
+
+/* Video Frame: Oversized to crop out unwanted edges and ensure full coverage */
+#bg-video {
+    /* Using min-width/min-height ensures it covers the screen */
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    
+    /* Reposition to center the video within the container */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    /* Oversize the video slightly to push the corners/edges (like the logo) outside the hidden area */
+    min-width: 110%; 
+    min-height: 110%;
+    
+    /* Set back to z-index: 1 or higher within its own container, 
+       but since the container is z-index -3, this is fine. */
+    z-index: -2; 
+}
+
+/* Video Overlay: Remains the same, but placed just above the video container */
+#video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Dark semi-transparent overlay */
+    z-index: -1; /* Placed above video container, behind content */
+}
         /* ---------------------------------------------------- */
 
 
@@ -582,14 +604,15 @@
 </head>
 <body>
     
-    <iframe 
+   <div id="video-background-container">
+    <iframe
         id="bg-video"
         src="https://www.youtube.com/embed/Jox6R5-rIH0?autoplay=1&mute=1&loop=1&playlist=Jox6R5-rIH0&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1"
         frameborder="0"
         allow="autoplay; fullscreen"
     ></iframe>
-
-    <div id="video-overlay"></div>
+</div>
+<div id="video-overlay"></div>
     
     <nav>
         <a id="nav-home" href="#" onclick="showPage('home')">About Me</a>
@@ -758,7 +781,7 @@
                     <div class="family-text-content">
                         <div class="family-title">My Mother (Barbara Fagcayang)</div>
                         <div class="family-description">
-                            She means the world to me; she loved me in every way she could. She worked hard and did her best raising me. Even though she's not here anymore, I know that she guides me with my choices and the paths I take.
+                            She means the world to me, she loved me in every way she can. She works hard and does her best on raising me even though she's not here anymore. Until now, I know that she guides me with my choices and paths that I take. 
                         </div>
                     </div>
                 </div>
@@ -939,7 +962,3 @@
     </script>
 </body>
 </html>
-
-
-
-
