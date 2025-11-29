@@ -11,11 +11,11 @@
             font-family: 'Segoe UI', sans-serif;
             background: #0a0a0a; /* Dark background */
             color: #b0b0b0; /* Light text */
-            overflow-y: hidden; /* FIX: Prevents main body scrollbar from appearing */
+            overflow-y: hidden; /* Prevents main body scrollbar from appearing */
         }
 
         /* ---------------------------------------------------- */
-        /* 🛠️ FIX START: Full-Screen Background Video Styles */
+        /* Full-Screen Background Video Styles */
         /* ---------------------------------------------------- */
         #bg-video {
             position: fixed;
@@ -41,8 +41,6 @@
             z-index: -1; /* Placed above video, behind content */
         }
         /* ---------------------------------------------------- */
-        /* 🛠️ FIX END */
-        /* ---------------------------------------------------- */
 
 
         /* Animations */
@@ -61,15 +59,15 @@
         /* Navigation Bar - Dark Tech Look */
         nav {
             width: 100%; height: 65px; background: #0a0a0a;
-            display: flex; justify-content: center; align-items: center; gap: 10px; /* Reduced gap for 4 items */
+            display: flex; justify-content: center; align-items: center; gap: 10px;
             box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); /* Subtle cyan glow */
-            z-index: 10; /* Ensure nav is on top of page content */
-            position: relative; /* Needed to establish stacking context over fixed video */
+            z-index: 10;
+            position: relative;
         }
         nav a {
             color: #ffffff;
             text-decoration: none;
-            font-size: 14px; /* Reduced font size for mobile fit */
+            font-size: 14px;
             font-weight: 600;
             padding: 8px 10px;
             border: 1px solid transparent;
@@ -87,7 +85,8 @@
         }
 
         @media (min-width: 768px) {
-            nav a { font-size: 18px; padding: 10px 20px; gap: 20px; }
+            nav { gap: 15px; } 
+            nav a { font-size: 16px; padding: 10px 15px; } 
         }
 
         /* Page Container - Non-Scrollable Height */
@@ -100,7 +99,7 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            position: relative; /* Important for stacking context over fixed video/overlay */
+            position: relative;
         }
         .active { display: flex; }
 
@@ -116,14 +115,12 @@
         .nav-button {
             padding: 10px 25px;
             border: none;
-            /* border-radius: 0; <- Removed to allow for the back button override */
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.3s, transform 0.1s;
-            /* NEW: Setup for button content and animation */
             position: relative;
-            overflow: hidden; /* Keeps pseudo-elements inside the button */
+            overflow: hidden;
         }
         
         /* Universal Blue, Rounded Back Button */
@@ -137,30 +134,25 @@
             margin: 0;
             align-self: flex-start;
         }
-        /* Style for the Family Back button to align it to the start of the container */
-        #family .nav-button-container {
-             justify-content: flex-start;
-             width: 95%;
-             max-width: 900px;
-        }
         
+        /* Styles for pages with only a Back button (like Batchmates) */
+        #batchmates .nav-button-container {
+             justify-content: flex-start;
+        }
+
         .nav-button-next {
             background: #00FFFF; /* Cyan */
             color: #1c1c1c; /* Dark text on bright button */
             box-shadow: 0 0 10px #00FFFF;
-            border-radius: 5px; /* Added border-radius for consistency */
-            padding: 12px 30px; /* Added padding for consistency */
+            border-radius: 5px;
+            padding: 12px 30px;
         }
         .nav-button:hover {
             opacity: 0.9;
             transform: translateY(-2px);
         }
         
-        /* ---------------------------------------------------- */
-        /* ✨ NEW: Button Hover Animation Styles (MODIFIED) */
-        /* ---------------------------------------------------- */
-
-        /* Base styles for the arrow pseudo-elements */
+        /* Button Hover Animation Styles */
         .nav-button::before,
         .nav-button::after {
             content: '';
@@ -171,38 +163,34 @@
             transition: transform 0.3s ease-out, opacity 0.3s ease-out;
         }
         
-        /* 1. Next Button Animation (Right Arrow) - MODIFIED CONTENT */
+        /* Next Button Animation (Right Arrow) */
         .nav-button-next::before {
-            content: '\25B6'; /* SOLID RIGHT TRIANGLE */
-            color: #1c1c1c; /* Dark color on cyan button */
-            left: 10px; /* Positioned slightly inside the button */
+            content: '\25B6'; 
+            color: #1c1c1c;
+            left: 10px;
             opacity: 0;
-            transform: translateX(-50px); /* Start off-screen to the left */
+            transform: translateX(-50px);
         }
         
         .nav-button-next:hover::before {
             opacity: 1;
-            transform: translateX(0); /* Slide into view */
+            transform: translateX(0);
         }
 
-        /* 2. Back Button Animation (Left Arrow) - MODIFIED CONTENT */
+        /* Back Button Animation (Left Arrow) */
         .nav-button-back::before {
-            content: '\25C0'; /* SOLID LEFT TRIANGLE */
-            color: #ffffff; /* White color on blue button */
-            right: 10px; /* Positioned slightly inside the button */
+            content: '\25C0'; 
+            color: #ffffff;
+            right: 10px;
             opacity: 0;
-            transform: translateX(50px); /* Start off-screen to the right */
+            transform: translateX(50px);
         }
         
         .nav-button-back:hover::before {
             opacity: 1;
-            transform: translateX(0); /* Slide into view */
+            transform: translateX(0);
         }
         
-        /* ---------------------------------------------------- */
-        /* ---------------------------------------------------- */
-
-
         /* HOME PAGE Layout (About Me) */
         .home-content {
             display: flex;
@@ -233,27 +221,33 @@
             overflow: hidden;
         }
         .profile-frame img {
-             width: 100%; height: 100%;
-             object-fit: cover; /* KEY: Fill the circular frame */
-             border-radius: 50%;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         /* --- COMMON LAYOUT & SCROLLING STYLES --- */
         .page-content-wrapper { /* Scrollable Content Area */
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* Stack items vertically */
             align-items: center;
             justify-content: flex-start; 
             flex-grow: 1;
             width: 100%;
-            padding: 10px 0;
-            overflow-y: auto; /* CRITICAL: Enables scrolling for content overflow */
+            padding: 0 0 10px 0; /* Reduced top/bottom padding */
+            overflow-y: hidden; /* Default to hidden on desktop to prevent unwanted scrolling */
             overflow-x: hidden;
             min-height: 0; 
         }
-        .page h1 { color: #ffffff; margin-bottom: 20px; flex-shrink: 0; text-align: center; }
+        .page h1 { color: #ffffff; margin-top: 5px; margin-bottom: 15px; flex-shrink: 0; text-align: center; } 
 
-        /* Card Container Styling - 4 items Horizontal arrangement on desktop */
+        /* Explicitly enable scroll for mobile view (where content might overflow) */
+        @media (max-width: 767px) {
+             .page-content-wrapper {
+                 overflow-y: auto;
+             }
+        }
+        /* Card Container Styling - Used for Education, Achievements, Family */
         .card-container {
             display: flex;
             flex-direction: column;
@@ -263,7 +257,7 @@
             max-width: 1000px;
             justify-content: center;
             flex-wrap: wrap;
-            padding-bottom: 20px;
+            padding-bottom: 10px; 
         }
         @media (max-width: 767px) {
              .card-container {
@@ -276,18 +270,23 @@
         @media (min-width: 768px) {
             .card-container {
                 flex-direction: row;
-                align-items: stretch; /* Forces all items in the row to the same height */
+                align-items: stretch;
                 justify-content: space-between;
             }
-            .edu-card-item, .ach-card-item, .family-card-item {
-                width: 23%; /* Four columns on desktop for consistency */
+            .edu-card-item, .ach-card-item { /* UNIFIED STYLING for Educ/Achiev */
+                width: 23%;
+                min-height: 250px; 
+                margin-bottom: 5px; 
+            }
+            .family-card-item {
+                width: 30%;
                 min-height: 280px; 
                 margin-bottom: 10px;
             }
         }
         
         /* --- EDUCATION SPECIFIC STYLES (CYAN ACCENTS) --- */
-        .edu-card-item { /* Base style for Education cards */
+        .edu-card-item {
             background: #1c1c1c;
             border-radius: 10px;
             padding: 15px;
@@ -297,13 +296,13 @@
             flex-direction: column;
             align-items: center;
             transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid rgba(0, 255, 255, 0.3); /* Cyan border */
+            border: 1px solid rgba(0, 255, 255, 0.3);
             margin-left: auto;
             margin-right: auto;
         }
         .edu-card-item:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.4); /* Cyan glow on hover */
+            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.4);
         }
         .edu-details {
             display: flex;
@@ -315,7 +314,7 @@
         }
         .edu-level { 
             font-weight: 700; 
-            color: #00FFFF; /* Cyan text */
+            color: #00FFFF;
             font-size: 1.1rem; 
             margin-bottom: 5px; 
         }
@@ -324,11 +323,10 @@
             color: #b0b0b0; 
             line-height: 1.3; 
         }
-        /* Icon/Logo Frame (Circular for Education) */
         .logo-frame-edu {
             width: 80px; height: 80px;
             border: 2px solid #555555;
-            border-radius: 50%; /* CIRCULAR */
+            border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
             color: #333333; font-size: 10px;
             background: #dddddd;
@@ -342,8 +340,8 @@
             border-radius: 50%;
         }
 
-        /* --- ACHIEVEMENTS SPECIFIC STYLES (MODIFIED FOR FAMILY CARD FORMAT) --- */
-        .ach-card-item { /* Base style for Achievement cards */
+        /* --- ACHIEVEMENTS SPECIFIC STYLES (GOLD ACCENTS) --- */
+        .ach-card-item { 
             background: #1c1c1c;
             border-radius: 10px;
             padding: 0;
@@ -360,10 +358,11 @@
             width: 95%; 
             max-width: 320px;
         }
+        /* Media query for large screens for ACHIEVEMENTS */
         @media (min-width: 768px) {
             .ach-card-item {
                 width: 23%; 
-                min-height: 280px; 
+                min-height: 250px; 
             }
         }
         .ach-card-item:hover {
@@ -428,24 +427,18 @@
             flex-direction: column;
             align-items: center;
             transition: transform 0.2s, box-shadow 0.2s;
-            border: 2px solid #00FFFF; /* Cyan Border */
+            border: 2px solid #00FFFF;
             margin-left: auto;
             margin-right: auto;
             overflow: hidden;
             width: 95%; 
             max-width: 320px;
         }
-        @media (min-width: 768px) {
-            .family-card-item {
-                width: 30%; 
-            }
-        }
         .family-card-item:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(0, 255, 255, 0.4);
         }
         
-        /* New: Image Container for the Family Section */
         .family-image-container {
             width: 100%;
             aspect-ratio: 4/3; 
@@ -476,15 +469,124 @@
             font-size: 0.9rem;
             line-height: 1.4;
         }
+
+        /* --- BATCHMATES PAGE SPECIFIC STYLES (FINAL LAYOUT) --- */
+        #batchmates h1 {
+            color: #bd93f9;
+            /* Resetting default H1 margin to align with the rest of the content flow */
+            margin-top: 5px; 
+            margin-bottom: 10px;
+        }
+
+        /* NEW RULE: Styling the PATIgasan title to match the H1 size */
+        .batchmates-title {
+            font-size: 1.0em; /* Adjusted size for mobile */
+            font-weight: 700;
+            color: #bd93f9; /* Retain batchmates color */
+            margin-bottom: 10px; /* Adjusted margin */
+            display: block; /* Ensures it takes up full width for centering */
+        }
+        @media (min-width: 768px) {
+            .batchmates-title {
+                font-size: 1.6em; /* Adjusted size for desktop */
+                margin-bottom: 15px; /* Adjusted margin */
+            }
+        }
+
+
+        /* 1. IMAGE FRAME: Now fixed and dominant */
+        .batchmate-image-frame {
+            width: 95%; /* Take up most width */
+            max-width: 700px; /* Increased max-width */
+            height: 40vh; /* Increased height */
+            min-height: 250px; /* Adjusted min-height */
+            aspect-ratio: unset; 
+            overflow: hidden;
+            border-radius: 8px;
+            border: 3px solid #bd93f9;
+            margin-bottom: 20px; 
+            background: #333333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .batchmate-image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* REMOVE DRAG HANDLE STYLES */
+        .drag-handle {
+            display: none;
+        }
+
+        /* 2. LIST CARD: Now shorter and wider */
+        .batchmate-list-card {
+            width: 95%; 
+            max-width: 300px; /* Wider list */
+            height: 200px; /* Fixed, shorter height */
+            flex-grow: 0; /* Prevents it from taking up unused space */
+            background: #1c1c1c;
+            border-radius: 10px;
+            padding: 15px;
+            border: 2px solid #00FFFF;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2);
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            text-align: center;
+            overflow-y: hidden; /* CRITICAL: Hide scrollbar for animation */
+            position: relative;
+            margin-bottom: 20px; 
+        }
+        
+        /* New Wrapper to hold duplicated ULs */
+        .scroll-wrapper {
+            width: 100%;
+            /* Start the animation */
+            animation: continuousScroll 60s linear infinite; /* Adjust 60s for speed */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 1. KEYFRAME ANIMATION for Seamless Loop */
+        @keyframes continuousScroll {
+            from {
+                transform: translateY(0); /* Start at the top of the combined lists */
+            }
+            to {
+                /* Move up by 50% of the wrapper's total height, which covers the first list completely */
+                transform: translateY(-50%); 
+            }
+        }
+
+        /* List element styling inside the card */
+        .batchmate-list-card ul {
+            list-style-type: none; 
+            padding: 0;
+            margin: 0;
+            flex-shrink: 0; /* Prevents shrinking */
+            white-space: nowrap; /* Prevent wrapping for accurate height calculation */
+        }
+
+        /* 3. List item styling: Remove lines */
+        .batchmate-list-card li {
+            text-align: center; 
+            padding: 3px 0;
+            border-bottom: none; /* Removed the dashed line */
+        }
     </style>
 </head>
 <body>
     
     <iframe 
-      id="bg-video"
-      src="https://www.youtube.com/embed/Jox6R5-rIH0?autoplay=1&mute=1&loop=1&playlist=Jox6R5-rIH0&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1"
-      frameborder="0"
-      allow="autoplay; fullscreen"
+        id="bg-video"
+        src="https://www.youtube.com/embed/Jox6R5-rIH0?autoplay=1&mute=1&loop=1&playlist=Jox6R5-rIH0&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1"
+        frameborder="0"
+        allow="autoplay; fullscreen"
     ></iframe>
 
     <div id="video-overlay"></div>
@@ -494,6 +596,7 @@
         <a id="nav-education" href="#" onclick="showPage('education')">Education</a>
         <a id="nav-achievements" href="#" onclick="showPage('achievements')">Achievements</a>
         <a id="nav-family" href="#" onclick="showPage('family')">My Family</a>
+        <a id="nav-batchmates" href="#" onclick="showPage('batchmates')">Batchmates</a> 
     </nav>
 
     <div class="page active" id="home">
@@ -505,7 +608,7 @@
             </div>
             <h1>Hello, I'm Abraham S. Fagcayang</h1>
             <p>
-                I’m an aspiring IT professional with a major in Enterprise Resource Planning. Ever since I was young, I’ve been fascinated by how technology connects people and simplifies life. That curiosity grew into a passion for solving problems through innovation and system efficiency. Today, I strive to combine my technical skills and creativity to build solutions that make a real difference.
+                As a passionate learner in the field of Information Technology, I am specializing in Enterprise Resource Planning (ERP) with a focus on systemic integration and optimization. My approach is rooted in understanding how technology connects and streamlines complex business functions to drive maximum efficiency. I am committed to leveraging my technical and analytical skills to not only implement innovative ERP solutions but also continually master emerging trends that deliver sustainable, strategic business value.
             </p>
         </div>
         <div class="nav-button-container">
@@ -584,7 +687,7 @@
                     <div class="ach-image-container">
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczNShOzVvXut_imESgNUOYXEYsJlttTPv8aJ8fQU7dic7-EZ2HAkQyVhpSqY3Z2o9bQPlOungKg_6pbxNlEXB77yUmMPFhasXqnhZPCTn-UfRXWqLto=w2400"
                             alt="Work Immersion Certificate"
-                            onerror="this.onerror=null; this.src='https://placehold.co/320x240/3a3200/FFD700?text=Certificate';"
+                            onerror="this.onerror=null; this.src='https://placehold.co/320x240/3a3200/FFD700?text=Cert';"
                         >
                     </div>
                     <div class="ach-text-content">
@@ -597,7 +700,7 @@
                     <div class="ach-image-container">
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczPdVnTutu5Y26jI96cIsHbPgLNc0Uno-sPkcBZsyVsPv14Y-fpjW2F1Bl2a--OUIt4FR5O-xHyaNBQ0uRTtqU9aPHjWVOOfAbUJ739B6lYoAyOnqH4=w2400"
                             alt="With Honors 2023-2024 Recognition Photo"
-                            onerror="this.onerror=null; this.src='https://placehold.co/320x240/3a3200/FFD700?text=Award+Photo';"
+                            onerror="this.onerror=null; this.src='https://placehold.co/320x240/3a3200/FFD700?text=Award';"
                         >
                     </div>
                     <div class="ach-text-content">
@@ -610,7 +713,7 @@
                     <div class="ach-image-container">
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczPOs6CZR9kH9GR_fcmtpq8mwBLVTF-9d1awE1OGSzDTmBMDKTibhA8DKMGeN6OvKBaGOTLpAyrW-bSOVlhfKDkJZBPeSC4ptJuuzasjYXybD9H1RLs=w2400"
                             alt="With Honors 2024-2025 Certificate"
-                            onerror="this.onerror=null; this.src='https://placehold.co/320x240/3a3200/FFD700?text=Certificate';"
+                            onerror="this.onerror=null; this.src='https://placehold.co/320x240/3a3200/FFD700?text=Cert';"
                         >
                     </div>
                     <div class="ach-text-content">
@@ -623,7 +726,7 @@
                     <div class="ach-image-container">
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczOBKb1VbZNzFrOo7Nu0WtGHxSJTHncCrpgpO8f7CB24sFG2jvlVwIKUlx8J26Kv-IEUVZU1_0_aonMONC6mj7JPbqUrZKddkR3mDn-cFa33D_NW8hc=w2400"
                             alt="Senior High Graduation Photo"
-                            onerror="this.onerror=null; this.src='https://placehold.co/320x240/3a3200/FFD700?text=Graduation+Photo';"
+                            onerror="this.onerror=null; this.src='https://placehold.co/320x240/3a3200/FFD700?text=Grad';"
                         >
                     </div>
                     <div class="ach-text-content">
@@ -662,9 +765,9 @@
 
                 <div class="family-card-item">
                     <div class="family-image-container">
-                                 <img src="https://lh3.googleusercontent.com/pw/AP1GczMqL-Ntn39Q5bPpWDpCKIjw72lm5mNX0Pax_ba3MjSXu4r3Z6CxBhItwiSYaXlQ-cmrorPLlfGj2Rn43V8-Hjat6a2NsE6mLtaTuhN9PVsEGw6A8wc=w2400"
-                                 alt="Shaking Father's Hand Placeholder"
-                                 onerror="this.onerror=null; this.src='https://placehold.co/320x240/38761d/ffffff?text=Error';"
+                            <img src="https://lh3.googleusercontent.com/pw/AP1GczMqL-Ntn39Q5bPpWDpCKIjw72lm5mNX0Pax_ba3MjSXu4r3Z6CxBhItwiSYaXlQ-cmrorPLlfGj2Rn43V8-Hjat6a2NsE6mLtaTuhN9PVsEGw6A8wc=w2400"
+                            alt="Shaking Father's Hand Placeholder"
+                            onerror="this.onerror=null; this.src='https://placehold.co/320x240/38761d/ffffff?text=Error';"
                         >
                     </div>
                     <div class="family-text-content">
@@ -694,10 +797,118 @@
 
         <div class="nav-button-container">
             <button class="nav-button nav-button-back" onclick="showPage('achievements')"> Back</button>
+            <button class="nav-button nav-button-next" onclick="showPage('batchmates')">Next </button>
         </div>
     </div>
+    
+    <div class="page" id="batchmates">
+        <h1>MY BATCHMATES </h1>
+        <h1><span class="batchmates-title">PATIgasan</span></h1> 
+        <div class="page-content-wrapper animate-in">
+            
+            <div id="imageFrame" class="batchmate-image-frame">
+                <img src="https://lh3.googleusercontent.com/pw/AP1GczOVbZ-cMXU8uGZlrChLMg2fX3FyT8aSs0w4nTQn6VXmvXdGmaSzPyGM6FuA8I4MfsaqoMKXD0EkwSPMoE4yZ_P_ELB9SF4RrSvJTSyiBFfwHNKWHqU=w2400"
+                    alt="Batchmates Group Picture"
+                    onerror="this.onerror=null; this.src='https://placehold.co/700x400/540099/FFFFFF?text=Batchmates+Photo';"
+                >
+            </div>
+            
+            <div class="batchmate-list-card">
+                
+                <div class="scroll-wrapper">
+                    
+                    <ul>
+                        <li>Aguilar, Stephen Nash</li>
+                        <li>Agustin, Jhon Rumsy</li>
+                        <li>Almuete, Edmar</li>
+                        <li>Bal-ut, Shawn Michael</li>
+                        <li>Ballesil, John Patrick</li>
+                        <li>Banogon, Clarence James</li>
+                        <li>Bantian, Jerwin</li>
+                        <li>Barnachea, Zp Crey</li>
+                        <li>Barnayha, James Maverick</li>
+                        <li>Basile, Patrick</li>
+                        <li>Cadiz, James Christian</li>
+                        <li>Canutab, Dharyl</li>
+                        <li>Cava, Arthur Rey</li>
+                        <li>Ceynas, Devon Angelo</li>
+                        <li>Claveria, Mark Anjo</li>
+                        <li>Damaso, Robert Emmanuel</li>
+                        <li>Dela Masa, Gio</li>
+                        <li>Emilio, Karl Aldrine</li>
+                        <li>Esmundo, Jaden</li>
+                        <li>Fagcayang, Abraham</li>
+                        <li>Fernandez, Ralph Michael</li>
+                        <li>Galingan, Leeyam Drake</li>
+                        <li>Ganado, Marl Julian</li>
+                        <li>Gavino, Aron Kent</li>
+                        <li>Gonzales, Ace</li>
+                        <li>Mejia, Russel Edward</li>
+                        <li>Murillo, Ramon</li>
+                        <li>Nadjahan, Kenneth</li>
+                        <li>Oblena, Wyeth Codie</li>
+                        <li>Peckley, Freya Dawani</li>
+                        <li>Pecsoy, Denmark</li>
+                        <li>Pomilban, John Zedrick</li>
+                        <li>Pundo, Ram Ivory</li>
+                        <li>Sidchayao, Edcel</li>
+                        <li>Tengay, Shiela Mar</li>
+                        <li>Ucol, Raiah Crista</li>
+                        <li>Umotoy, Manuel Jun</li>
+                    </ul>
 
+                    <ul>
+                        <li>Aguilar, Stephen Nash</li>
+                        <li>Agustin, Jhon Rumsy</li>
+                        <li>Almuete, Edmar</li>
+                        <li>Bal-ut, Shawn Michael</li>
+                        <li>Ballesil, John Patrick</li>
+                        <li>Banogon, Clarence James</li>
+                        <li>Bantian, Jerwin</li>
+                        <li>Barnachea, Zp Crey</li>
+                        <li>Barnayha, James Maverick</li>
+                        <li>Basile, Patrick</li>
+                        <li>Cadiz, James Christian</li>
+                        <li>Canutab, Dharyl</li>
+                        <li>Cava, Arthur Rey</li>
+                        <li>Ceynas, Devon Angelo</li>
+                        <li>Claveria, Mark Anjo</li>
+                        <li>Damaso, Robert Emmanuel</li>
+                        <li>Dela Masa, Gio</li>
+                        <li>Emilio, Karl Aldrine</li>
+                        <li>Esmundo, Jaden</li>
+                        <li>Fagcayang, Abraham</li>
+                        <li>Fernandez, Ralph Michael</li>
+                        <li>Galingan, Leeyam Drake</li>
+                        <li>Ganado, Marl Julian</li>
+                        <li>Gavino, Aron Kent</li>
+                        <li>Gonzales, Ace</li>
+                        <li>Mejia, Russel Edward</li>
+                        <li>Murillo, Ramon</li>
+                        <li>Nadjahan, Kenneth</li>
+                        <li>Oblena, Wyeth Codie</li>
+                        <li>Peckley, Freya Dawani</li>
+                        <li>Pecsoy, Denmark</li>
+                        <li>Pomilban, John Zedrick</li>
+                        <li>Pundo, Ram Ivory</li>
+                        <li>Sidchayao, Edcel</li>
+                        <li>Tengay, Shiela Mar</li>
+                        <li>Ucol, Raiah Crista</li>
+                        <li>Umotoy, Manuel Jun</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-button-container">
+            <button class="nav-button nav-button-back" onclick="showPage('family')"> Back</button>
+            <div style="width: 100%;"></div> 
+        </div>
+    </div>
     <script>
+        // --- JAVASCRIPT FOR PAGE NAVIGATION ---
+        
+        // Function to handle page switching and navigation
         function showPage(pageId) {
             // 1. Remove active class and animation class from all pages
             document.querySelectorAll('.page').forEach(p => {
@@ -728,7 +939,3 @@
     </script>
 </body>
 </html>
-
-
-
-
