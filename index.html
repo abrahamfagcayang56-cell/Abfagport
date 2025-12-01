@@ -114,18 +114,31 @@
         }
         .active { display: flex; }
 
-        /* Navigation Buttons - Angular/Sharp */
-        .nav-button-container {
-            position: absolute;
-            bottom: 20px; 
-            right: 20px; 
-            left: auto; 
-            display: flex;
-            justify-content: flex-end; 
-            gap: 15px; 
-            padding: 0; 
-            flex-shrink: 0;
-            z-index: 5; 
+ /* Navigation Buttons - Angular/Sharp */
+.nav-button-container {
+    position: absolute;
+    bottom: 20px; 
+    /* FIX: Adjusted from 20px to 50px to move the buttons 30px closer to the center */
+    right: 50px; 
+    left: auto; 
+    display: flex;
+    justify-content: flex-end; 
+    gap: 15px; 
+    padding: 0; 
+    flex-shrink: 0;
+    z-index: 5; 
+}
+
+/* Ensure the specific override for the batchmates page is also updated */
+#batchmates .nav-button-container {
+    display: flex; 
+    justify-content: flex-end; 
+    bottom: 20px; 
+    /* FIX: Applied the same 50px right offset here */
+    right: 50px; 
+    left: auto; 
+    width: auto; 
+}
         }
         
         .nav-button {
