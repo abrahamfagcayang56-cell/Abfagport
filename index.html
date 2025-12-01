@@ -18,49 +18,38 @@
 /* Full-Screen Background Video Styles */
 /* ---------------------------------------------------- */
 
-/* New Container: Ensures nothing spills outside the viewport */
 #video-background-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    overflow: hidden; /* CRITICAL: Hides the oversized edges (like YouTube logo/controls) */
-    z-index: -3; /* Place behind overlay and content */
+    overflow: hidden; 
+    z-index: -3; 
 }
 
-/* Video Frame: Oversized to crop out unwanted edges and ensure full coverage */
 #bg-video {
-    /* Using min-width/min-height ensures it covers the screen */
     min-width: 100%;
     min-height: 100%;
     width: auto;
     height: auto;
-    
-    /* Reposition to center the video within the container */
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    
-    /* Oversize the video slightly to push the corners/edges (like the logo) outside the hidden area */
     min-width: 110%; 
     min-height: 110%;
-    
-    /* Set back to z-index: 1 or higher within its own container, 
-       but since the container is z-index -3, this is fine. */
     z-index: -2; 
 }
 
-/* Video Overlay: Remains the same, but placed just above the video container */
 #video-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Dark semi-transparent overlay */
-    z-index: -1; /* Placed above video container, behind content */
+    background: rgba(0, 0, 0, 0.7); 
+    z-index: -1; 
 }
         /* ---------------------------------------------------- */
 
@@ -82,7 +71,7 @@
         nav {
             width: 100%; height: 65px; background: #0a0a0a;
             display: flex; justify-content: center; align-items: center; gap: 10px;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); /* Subtle cyan glow */
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); 
             z-index: 10;
             position: relative;
         }
@@ -117,23 +106,28 @@
             height: calc(100vh - 65px);
             display: none;
             padding: 20px;
-            overflow: hidden; /* Prevents outer scrollbar */
+            overflow: hidden; 
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            position: relative;
+            position: relative; 
         }
         .active { display: flex; }
 
         /* Navigation Buttons - Angular/Sharp */
         .nav-button-container {
-            width: 90%;
-            max-width: 900px;
+            position: absolute;
+            bottom: 20px; 
+            right: 20px; 
+            left: auto; 
             display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
+            justify-content: flex-end; 
+            gap: 15px; 
+            padding: 0; 
             flex-shrink: 0;
+            z-index: 5; 
         }
+        
         .nav-button {
             padding: 10px 25px;
             border: none;
@@ -143,9 +137,10 @@
             transition: background 0.3s, transform 0.1s;
             position: relative;
             overflow: hidden;
+            margin: 0; 
+            align-self: auto; 
         }
         
-        /* Universal Blue, Rounded Back Button */
         .nav-button-back {
             background: #007bff;
             color: #ffffff;
@@ -153,18 +148,11 @@
             border-radius: 5px; 
             font-size: 18px;
             padding: 12px 30px;
-            margin: 0;
-            align-self: flex-start;
         }
         
-        /* Styles for pages with only a Back button (like Batchmates) */
-        #batchmates .nav-button-container {
-             justify-content: flex-start;
-        }
-
         .nav-button-next {
-            background: #00FFFF; /* Cyan */
-            color: #1c1c1c; /* Dark text on bright button */
+            background: #00FFFF; 
+            color: #1c1c1c; 
             box-shadow: 0 0 10px #00FFFF;
             border-radius: 5px;
             padding: 12px 30px;
@@ -174,7 +162,6 @@
             transform: translateY(-2px);
         }
         
-        /* Button Hover Animation Styles */
         .nav-button::before,
         .nav-button::after {
             content: '';
@@ -185,7 +172,6 @@
             transition: transform 0.3s ease-out, opacity 0.3s ease-out;
         }
         
-        /* Next Button Animation (Right Arrow) */
         .nav-button-next::before {
             content: '\25B6'; 
             color: #1c1c1c;
@@ -199,7 +185,6 @@
             transform: translateX(0);
         }
 
-        /* Back Button Animation (Left Arrow) */
         .nav-button-back::before {
             content: '\25C0'; 
             color: #ffffff;
@@ -249,21 +234,21 @@
         }
 
         /* --- COMMON LAYOUT & SCROLLING STYLES --- */
-        .page-content-wrapper { /* Scrollable Content Area */
+        .page-content-wrapper { 
             display: flex;
-            flex-direction: column; /* Stack items vertically */
+            flex-direction: column; 
             align-items: center;
             justify-content: flex-start; 
             flex-grow: 1;
             width: 100%;
-            padding: 0 0 10px 0; /* Reduced top/bottom padding */
-            overflow-y: hidden; /* Default to hidden on desktop to prevent unwanted scrolling */
+            /* ⭐️ ADJUSTED PADDING ⭐️ */
+            padding: 0 0 80px 0; 
+            overflow-y: auto; 
             overflow-x: hidden;
             min-height: 0; 
         }
         .page h1 { color: #ffffff; margin-top: 5px; margin-bottom: 15px; flex-shrink: 0; text-align: center; } 
 
-        /* Explicitly enable scroll for mobile view (where content might overflow) */
         @media (max-width: 767px) {
              .page-content-wrapper {
                  overflow-y: auto;
@@ -290,21 +275,21 @@
              }
         }
         @media (min-width: 768px) {
-            .card-container {
-                flex-direction: row;
-                align-items: stretch;
-                justify-content: space-between;
-            }
-            .edu-card-item, .ach-card-item { /* UNIFIED STYLING for Educ/Achiev */
-                width: 23%;
-                min-height: 250px; 
-                margin-bottom: 5px; 
-            }
-            .family-card-item {
-                width: 30%;
-                min-height: 280px; 
-                margin-bottom: 10px;
-            }
+             .card-container {
+                 flex-direction: row;
+                 align-items: stretch;
+                 justify-content: space-between;
+             }
+             .edu-card-item, .ach-card-item { 
+                 width: 23%;
+                 min-height: 250px; 
+                 margin-bottom: 5px; 
+             }
+             .family-card-item {
+                 width: 30%;
+                 min-height: 280px; 
+                 margin-bottom: 10px;
+             }
         }
         
         /* --- EDUCATION SPECIFIC STYLES (CYAN ACCENTS) --- */
@@ -380,7 +365,6 @@
             width: 95%; 
             max-width: 320px;
         }
-        /* Media query for large screens for ACHIEVEMENTS */
         @media (min-width: 768px) {
             .ach-card-item {
                 width: 23%; 
@@ -427,7 +411,6 @@
             line-height: 1.4; 
             text-align: left; 
         }
-        /* Hidden elements from the old achievement layout that are no longer used */
         .logo-frame-ach, .ach-details {
             display: none;
         }
@@ -438,7 +421,8 @@
             margin-bottom: 20px;
             font-size: 32px;
         }
-
+        /* Removed card container margin-bottom since page-content-wrapper padding handles spacing */
+        
         .family-card-item {
             background: #1c1c1c;
             border-radius: 10px;
@@ -492,134 +476,153 @@
             line-height: 1.4;
         }
 
-        /* --- BATCHMATES PAGE SPECIFIC STYLES (FINAL LAYOUT) --- */
-        #batchmates h1 {
-            color: #bd93f9;
-            /* Resetting default H1 margin to align with the rest of the content flow */
-            margin-top: 5px; 
-            margin-bottom: 10px;
-        }
+/* --- BATCHMATES PAGE SPECIFIC STYLES (MODIFIED) --- */
 
-        /* NEW RULE: Styling the PATIgasan title to match the H1 size */
-        .batchmates-title {
-            font-size: 1.0em; /* Adjusted size for mobile */
-            font-weight: 700;
-            color: #bd93f9; /* Retain batchmates color */
-            margin-bottom: 10px; /* Adjusted margin */
-            display: block; /* Ensures it takes up full width for centering */
-        }
-        @media (min-width: 768px) {
-            .batchmates-title {
-                font-size: 1.6em; /* Adjusted size for desktop */
-                margin-bottom: 15px; /* Adjusted margin */
-            }
-        }
+#batchmates h1 {
+    color: #bd93f9;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+.batchmates-title {
+    font-size: 1.0em;
+    font-weight: 700;
+    color: #bd93f9;
+    margin-bottom: 10px;
+    display: block;
+}
+@media (min-width: 768px) {
+    .batchmates-title {
+        font-size: 1.6em;
+        margin-bottom: 15px;
+    }
+}
+
+.batchmates-grid-container {
+    width: 95%;
+    max-width: 1000px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    min-height: 0;
+    overflow-y: hidden;
+}
+
+@media (min-width: 768px) {
+    .batchmates-grid-container {
+        display: grid;
+        /* FIX: Adjusted grid ratio from 2fr 1fr to 3fr 2fr (or similar) to give the list card more width */
+        grid-template-columns: 3fr 2fr; 
+        align-items: stretch;
+        gap: 25px;
+    }
+}
+
+.batchmate-image-frame {
+    width: 100%;
+    height: auto;
+    flex-grow: 1;
+    min-height: 300px;
+    border: 3px solid #bd93f9;
+    border-radius: 8px;
+    background: #333333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+.batchmate-image-frame p {
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.batchmate-list-card {
+    width: 100%; 
+    height: auto; 
+    flex-grow: 1;
+    min-height: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    border: 2px solid #00FFFF;
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2);
+    color: #ffffff;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    
+    /* FIX: Temporarily allowing overflow here to contain the content */
+    overflow: hidden; 
+    position: relative;
+}
+
+.batchmate-list-container {
+    flex-grow: 1;
+    padding: 5px 0 0 0;
+    
+    /* FIX: Changed back to overflow: hidden; to remove scrollbar
+       If the content still overflows vertically, you will need to accept scrolling or reduce the font size. */
+    overflow-y: hidden;
+    overflow-x: hidden;
+    
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: space-between;
+    
+    /* Remove custom scrollbar styles as scrolling is requested to be removed */
+    scrollbar-width: none;
+}
+.batchmate-list-container::-webkit-scrollbar {
+    display: none;
+}
 
 
-        /* 1. IMAGE FRAME: Now fixed and dominant */
-        .batchmate-image-frame {
-            width: 95%; /* Take up most width */
-            max-width: 700px; /* Increased max-width */
-            height: 40vh; /* Increased height */
-            min-height: 250px; /* Adjusted min-height */
-            aspect-ratio: unset; 
-            overflow: hidden;
-            border-radius: 8px;
-            border: 3px solid #bd93f9;
-            margin-bottom: 20px; 
-            background: #333333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-shrink: 0;
-            position: relative;
-        }
-        .batchmate-image-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+.batchmate-list-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    /* FIX: Increased width from 48% to 49.5% to give list items more space and ensure a small gap */
+    width: 49.5%; 
+}
 
-        /* REMOVE DRAG HANDLE STYLES */
-        .drag-handle {
-            display: none;
-        }
+.batchmate-list-container li {
+    text-align: left;
+    padding: 2px 0;
+    /* Consider slightly smaller font if names are still cut off */
+    font-size: 0.85rem; 
+    line-height: 1.1;
+    /* Removed white-space: nowrap to allow wrapping */
+    cursor: pointer;
+    transition: color 0.2s;
+}
 
-        /* 2. LIST CARD: Now shorter and wider */
-        .batchmate-list-card {
-            width: 95%; 
-            max-width: 300px; /* Wider list */
-            height: 200px; /* Fixed, shorter height */
-            flex-grow: 0; /* Prevents it from taking up unused space */
-            background: #1c1c1c;
-            border-radius: 10px;
-            padding: 15px;
-            border: 2px solid #00FFFF;
-            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2);
-            color: #b0b0b0;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            text-align: center;
-            overflow-y: hidden; /* CRITICAL: Hide scrollbar for animation */
-            position: relative;
-            margin-bottom: 20px; 
-        }
-        
-        /* New Wrapper to hold duplicated ULs */
-        .scroll-wrapper {
-            width: 100%;
-            /* Start the animation */
-            animation: continuousScroll 60s linear infinite; /* Adjust 60s for speed */
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* 1. KEYFRAME ANIMATION for Seamless Loop */
-        @keyframes continuousScroll {
-            from {
-                transform: translateY(0); /* Start at the top of the combined lists */
-            }
-            to {
-                /* Move up by 50% of the wrapper's total height, which covers the first list completely */
-                transform: translateY(-50%); 
-            }
-        }
-
-        /* List element styling inside the card */
-        .batchmate-list-card ul {
-            list-style-type: none; 
-            padding: 0;
-            margin: 0;
-            flex-shrink: 0; /* Prevents shrinking */
-            white-space: nowrap; /* Prevent wrapping for accurate height calculation */
-        }
-
-        /* 3. List item styling: Remove lines */
-        .batchmate-list-card li {
-            text-align: center; 
-            padding: 3px 0;
-            border-bottom: none; /* Removed the dashed line */
-        }
+.batchmate-list-container li:hover {
+    color: #00FFFF;
+}
     </style>
 </head>
 <body>
     
-   <div id="video-background-container">
-    <iframe
-        id="bg-video"
-        src="https://www.youtube.com/embed/Jox6R5-rIH0?autoplay=1&mute=1&loop=1&playlist=Jox6R5-rIH0&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1"
-        frameborder="0"
-        allow="autoplay; fullscreen"
-    ></iframe>
-</div>
-<div id="video-overlay"></div>
+    <div id="video-background-container">
+        <iframe
+            id="bg-video"
+            src="https://www.youtube.com/embed/Jox6R5-rIH0?autoplay=1&mute=1&loop=1&playlist=Jox6R5-rIH0&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1"
+            frameborder="0"
+            allow="autoplay; fullscreen"
+        ></iframe>
+    </div>
+    <div id="video-overlay"></div>
     
     <nav>
         <a id="nav-home" href="#" onclick="showPage('home')">About Me</a>
         <a id="nav-education" href="#" onclick="showPage('education')">Education</a>
         <a id="nav-achievements" href="#" onclick="showPage('achievements')">Achievements</a>
         <a id="nav-family" href="#" onclick="showPage('family')">My Family</a>
-        <a id="nav-batchmates" href="#" onclick="showPage('batchmates')">Batchmates</a> 
+        <a id="nav-batchmates" href="#" onclick="showPage('batchmates')">My Batchmates</a> 
     </nav>
 
     <div class="page active" id="home">
@@ -635,8 +638,7 @@
             </p>
         </div>
         <div class="nav-button-container">
-            <div style="width: 100%;"></div>
-            <button class="nav-button nav-button-next" onclick="showPage('education')">Next </button>
+                        <button class="nav-button nav-button-next" onclick="showPage('education')">Next </button>
         </div>
     </div>
 
@@ -779,14 +781,14 @@
                         >
                     </div>
                     <div class="family-text-content">
-                        <div class="family-title">My Mother (Barbara Fagcayang)</div>
+                        <div class="family-title">My Mother (Barbara S. Fagcayang)</div>
                         <div class="family-description">
                             She means the world to me, she loved me in every way she can. She works hard and does her best on raising me even though she's not here anymore. Until now, I know that she guides me with my choices and paths that I take. 
                         </div>
                     </div>
                 </div>
 
-                <div class="family-card-item">
+              <div class="family-card-item">
                     <div class="family-image-container">
                             <img src="https://lh3.googleusercontent.com/pw/AP1GczMqL-Ntn39Q5bPpWDpCKIjw72lm5mNX0Pax_ba3MjSXu4r3Z6CxBhItwiSYaXlQ-cmrorPLlfGj2Rn43V8-Hjat6a2NsE6mLtaTuhN9PVsEGw6A8wc=w2400"
                             alt="Shaking Father's Hand Placeholder"
@@ -809,9 +811,9 @@
                         >
                     </div>
                     <div class="family-text-content">
-                        <div class="family-title">My Best Friends (Glenford Lacaben, Louis Vladimir Delim, and Lara Faith Bilag)</div>
+                        <div class="family-title">My Friends (A true second family)</div>
                         <div class="family-description">
-                            We may not be biologically related, but they are the ones who accept me and don't care who or what I am. We treat each other and love each other as if we are brothers and sisters. Their unwavering support has created a bond stronger than blood. 
+                           A collection of supportive friends who have become like family. They are the ones who share my laughter and lend an ear during tough times, constantly reminding me that I am never alone.
                         </div>
                     </div>
                 </div>
@@ -820,142 +822,105 @@
 
         <div class="nav-button-container">
             <button class="nav-button nav-button-back" onclick="showPage('achievements')"> Back</button>
-            <button class="nav-button nav-button-next" onclick="showPage('batchmates')">Next </button>
+            <button class="nav-button nav-button-next" onclick="showPage('batchmates')">Next </button> 
         </div>
     </div>
     
-    <div class="page" id="batchmates">
-        <h1>MY BATCHMATES </h1>
-        <h1><span class="batchmates-title">PATIgasan</span></h1> 
-        <div class="page-content-wrapper animate-in">
-            
-            <div id="imageFrame" class="batchmate-image-frame">
-                <img src="https://lh3.googleusercontent.com/pw/AP1GczOVbZ-cMXU8uGZlrChLMg2fX3FyT8aSs0w4nTQn6VXmvXdGmaSzPyGM6FuA8I4MfsaqoMKXD0EkwSPMoE4yZ_P_ELB9SF4RrSvJTSyiBFfwHNKWHqU=w2400"
-                    alt="Batchmates Group Picture"
-                    onerror="this.onerror=null; this.src='https://placehold.co/700x400/540099/FFFFFF?text=Batchmates+Photo';"
+ <div class="page" id="batchmates">
+    <div class="page-content-wrapper animate-in">
+        <h1>MY BATCHMATES</h1>
+        <span class="batchmates-title">PATIgasan</span>
+        
+        <div class="batchmates-grid-container">
+
+            <div class="batchmate-image-frame">
+                <img 
+                    src="https://lh3.googleusercontent.com/pw/AP1GczN6QwOYQeVPnOt0EZipscf6H5kvY9pMu4Dd1yhbeFJixx_f1Yy70P9D1-e040VDH-mFtqX_9ZxifA_WfqUPuFIAqsUrymo0KzSE-onJz8bEsEfpuKU=w2400"
+                    alt="Group photo of batchmates"
+                    onerror="this.onerror=null; this.src='https://placehold.co/400x300/333333/FFFFFF?text=Batchmates+Photo';"
+                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;"
                 >
-            </div>
-            
+                </div>
+
             <div class="batchmate-list-card">
                 
-                <div class="scroll-wrapper">
-                    
-                    <ul>
-                        <li>Aguilar, Stephen Nash</li>
-                        <li>Agustin, Jhon Rumsy</li>
-                        <li>Almuete, Edmar</li>
-                        <li>Bal-ut, Shawn Michael</li>
-                        <li>Ballesil, John Patrick</li>
-                        <li>Banogon, Clarence James</li>
-                        <li>Bantian, Jerwin</li>
-                        <li>Barnachea, Zp Crey</li>
-                        <li>Barnayha, James Maverick</li>
-                        <li>Basile, Patrick</li>
-                        <li>Cadiz, James Christian</li>
-                        <li>Canutab, Dharyl</li>
-                        <li>Cava, Arthur Rey</li>
-                        <li>Ceynas, Devon Angelo</li>
-                        <li>Claveria, Mark Anjo</li>
-                        <li>Damaso, Robert Emmanuel</li>
-                        <li>Dela Masa, Gio</li>
-                        <li>Emilio, Karl Aldrine</li>
-                        <li>Esmundo, Jaden</li>
-                        <li>Fagcayang, Abraham</li>
-                        <li>Fernandez, Ralph Michael</li>
-                        <li>Galingan, Leeyam Drake</li>
-                        <li>Ganado, Marl Julian</li>
-                        <li>Gavino, Aron Kent</li>
-                        <li>Gonzales, Ace</li>
-                        <li>Mejia, Russel Edward</li>
-                        <li>Murillo, Ramon</li>
-                        <li>Nadjahan, Kenneth</li>
-                        <li>Oblena, Wyeth Codie</li>
-                        <li>Peckley, Freya Dawani</li>
-                        <li>Pecsoy, Denmark</li>
-                        <li>Pomilban, John Zedrick</li>
-                        <li>Pundo, Ram Ivory</li>
-                        <li>Sidchayao, Edcel</li>
-                        <li>Tengay, Shiela Mar</li>
-                        <li>Ucol, Raiah Crista</li>
-                        <li>Umotoy, Manuel Jun</li>
-                    </ul>
-
-                    <ul>
-                        <li>Aguilar, Stephen Nash</li>
-                        <li>Agustin, Jhon Rumsy</li>
-                        <li>Almuete, Edmar</li>
-                        <li>Bal-ut, Shawn Michael</li>
-                        <li>Ballesil, John Patrick</li>
-                        <li>Banogon, Clarence James</li>
-                        <li>Bantian, Jerwin</li>
-                        <li>Barnachea, Zp Crey</li>
-                        <li>Barnayha, James Maverick</li>
-                        <li>Basile, Patrick</li>
-                        <li>Cadiz, James Christian</li>
-                        <li>Canutab, Dharyl</li>
-                        <li>Cava, Arthur Rey</li>
-                        <li>Ceynas, Devon Angelo</li>
-                        <li>Claveria, Mark Anjo</li>
-                        <li>Damaso, Robert Emmanuel</li>
-                        <li>Dela Masa, Gio</li>
-                        <li>Emilio, Karl Aldrine</li>
-                        <li>Esmundo, Jaden</li>
-                        <li>Fagcayang, Abraham</li>
-                        <li>Fernandez, Ralph Michael</li>
-                        <li>Galingan, Leeyam Drake</li>
-                        <li>Ganado, Marl Julian</li>
-                        <li>Gavino, Aron Kent</li>
-                        <li>Gonzales, Ace</li>
-                        <li>Mejia, Russel Edward</li>
-                        <li>Murillo, Ramon</li>
-                        <li>Nadjahan, Kenneth</li>
-                        <li>Oblena, Wyeth Codie</li>
-                        <li>Peckley, Freya Dawani</li>
-                        <li>Pecsoy, Denmark</li>
-                        <li>Pomilban, John Zedrick</li>
-                        <li>Pundo, Ram Ivory</li>
-                        <li>Sidchayao, Edcel</li>
-                        <li>Tengay, Shiela Mar</li>
-                        <li>Ucol, Raiah Crista</li>
-                        <li>Umotoy, Manuel Jun</li>
-                    </ul>
+                <div class="batchmate-list-container">
+                        
+                        <ul>
+                            <li>1. Aguilar, Stephen Nash C.</li>
+                            <li>2. Agustin, Jhon Rumsy</li>
+                            <li>3. Almuete, Edmar P.</li>
+                            <li>4. Bal-ut, Shawn Michael T.</li>
+                            <li>5. Ballesil, John Patrick C.</li>
+                            <li>6. Banogon, Clarence James P.</li>
+                            <li>7. Bantian, Jerwin B.</li>
+                            <li>8. Barnachea, Zp Crey M.</li>
+                            <li>9. Barnayha, James Maverick R.</li>
+                            <li>10. Basile, Patrick A.</li>
+                            <li>11. Cadiz, James Christian B.</li>
+                            <li>12. Canutab, Dharyl S.</li>
+                            <li>13. Cava Arthur Rey F.</li>
+                            <li>14. Ceynas, Devon Angelo M.</li>
+                            <li>15. Claveria, Mark Anjo S.</li>
+                            <li>16. Damaso, Robert Emmanuel L.</li>
+                            <li>17. DelaMasa, Gio D.</li>
+                            <li>18. Emilio, Karl Aldrine M.</li>
+                            <li>19. Esmundo, Jaden O.</li>
+                        </ul>
+                        
+                        <ul>
+                            <li>20. Fagcayang, Abraham S.</li>
+                            <li>21. Fernandez, Ralph Michael B.</li>
+                            <li>22. Galingan, Leeyam Drake T.</li>
+                            <li>23. Ganado, Marl Julian L.</li>
+                            <li>24. Gavino, Aron Kent P.</li>
+                            <li>25. Gonzales, Ace A.</li>
+                            <li>26. Mejia, Russel Edward A,</li>
+                            <li>27. Murillio, Ramon M.</li>
+                            <li>28. Nadjahan, Kenneth K.</li>
+                            <li>29. Oblena, Wyeth Codie G.</li>
+                            <li>30. Peckley, Freya Dawani P.</li>
+                            <li>31. Pecsoy, Denmark N.</li>
+                            <li>32. Pomilban, John Zedrick B.</li>
+                            <li>33. Pundo, Ram Ivory K.</li>
+                            <li>34. Sidchayao, Edcel G.</li>
+                            <li>35. Tengay, Shiela Mar G.</li>
+                            <li>36. Ucol, Raiah Crista C.</li>
+                            <li>37. Umotoy, manuel Jun V.</li>
+                        </ul>
+                        
+                    </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
+        
         <div class="nav-button-container">
-            <button class="nav-button nav-button-back" onclick="showPage('family')"> Back</button>
-            <div style="width: 100%;"></div> 
+            <button class="nav-button nav-button-back" onclick="showPage('family')">Back</button>
         </div>
     </div>
     <script>
-        // --- JAVASCRIPT FOR PAGE NAVIGATION ---
-        
-        // Function to handle page switching and navigation
         function showPage(pageId) {
-            // 1. Remove active class and animation class from all pages
-            document.querySelectorAll('.page').forEach(p => {
-                p.classList.remove('active', 'animate-in');
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
             });
-
-            // 2. Add active class to the requested page
-            const page = document.getElementById(pageId);
-            if (page) {
-                // Force reflow/re-render to restart the CSS animation
-                void page.offsetWidth;
-
-                page.classList.add('active', 'animate-in');
+            // Show the requested page
+            const activePage = document.getElementById(pageId);
+            if (activePage) {
+                activePage.classList.add('active');
             }
 
-            // 3. Update nav link styling
-            document.querySelectorAll('nav a').forEach(a => a.classList.remove('nav-active'));
-            const activeLink = document.getElementById(`nav-${pageId}`);
-            if (activeLink) {
-                activeLink.classList.add('nav-active');
+            // Update navigation active class
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('nav-active');
+            });
+            const activeNav = document.getElementById('nav-' + pageId);
+            if (activeNav) {
+                activeNav.classList.add('nav-active');
             }
         }
 
-        // Initialize on load
+        // Set the initial active page to 'home' and nav link
         document.addEventListener('DOMContentLoaded', () => {
             showPage('home');
         });
