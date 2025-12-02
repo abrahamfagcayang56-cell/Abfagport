@@ -374,7 +374,25 @@
             border: 1px solid #C8E6C9;
         }
         
-        /* --- ⭐️ ACHIEVEMENTS SPECIFIC STYLES (Page 3) ⭐️ --- */
+         /* --- ⭐️ ACHIEVEMENTS SPECIFIC STYLES (Page 3) ⭐️ --- */
+        /* IMPORTANT: This ensures the 2x2 grid still works for achievements */
+        #achievements .card-container {
+            /* Override flex to use grid only for achievements page */
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 20px; 
+            max-width: 900px; 
+            padding-right: 15px;
+        }
+
+        /* Ensure the wrapper allows scrolling if the cards exceed height */
+        #achievements .page-content-wrapper {
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 5px; 
+            padding-bottom: 80px; 
+        }
+
         .ach-card-item { 
             background: #1c1c1c;
             border-radius: 10px;
@@ -386,19 +404,10 @@
             align-items: center;
             transition: transform 0.2s, box-shadow 0.2s;
             border: 2px solid #FFD700; 
-            margin-left: auto;
-            margin-right: auto;
             overflow: hidden;
-            width: 95%; 
-            max-width: 320px;
-            max-height: 50vh; 
-        }
-        
-        @media (min-width: 768px) {
-            .ach-card-item {
-                width: 48%; 
-                min-height: auto; 
-            }
+            max-height: none;
+            width: auto;
+            min-height: auto;
         }
         
         .ach-card-item:hover {
@@ -414,7 +423,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            max-height: 150px; /* Mas pinaliit pa */
+            max-height: 150px; 
         }
         .ach-image-container img {
             width: 100%;
@@ -423,7 +432,7 @@
         }
         
         .ach-text-content {
-            padding: 8px; /* Pinaliit pa mula 10px */
+            padding: 8px; 
             color: #b0b0b0;
             flex-grow: 1;
             width: 100%;
@@ -432,12 +441,12 @@
         .ach-level { 
             font-weight: 700; 
             color: #FFD700; 
-            font-size: 0.9rem; /* Pinaliit pa mula 1.0rem */
+            font-size: 0.9rem; 
             margin-bottom: 3px; 
             text-align: left; 
         }
         .ach-name { 
-            font-size: 0.7rem; /* Pinaliit pa mula 0.8rem */
+            font-size: 0.7rem; 
             color: #b0b0b0; 
             line-height: 1.3; 
             text-align: left; 
@@ -446,11 +455,30 @@
             display: none;
         }
 
+        /* Responsive: Change back to 1 column on smaller screens for Achievements */
+        @media (max-width: 767px) {
+            .card-container {
+                grid-template-columns: 1fr; 
+                gap: 15px;
+                max-width: 400px;
+                padding-right: 0;
+                /* Reset to flex for Family page on mobile */
+                display: flex; 
+                flex-direction: column;
+            }
+        }
+
         /* --- FAMILY PAGE SPECIFIC STYLES --- */
         #family h1 { 
             color: #ffffff;
             margin-bottom: 20px;
             font-size: 32px;
+        }
+        
+        #family .page-content-wrapper {
+            /* This ensures the content wrapper can contain the horizontal row */
+            justify-content: center;
+            align-items: center;
         }
         
         .family-card-item {
@@ -507,100 +535,103 @@
         }
 
 /* ----------------------------------------------------------- */
-/* BATCHMATES PAGE STYLES - 70/30 SPLIT, No Scroll */
+/* BATCHMATES PAGE STYLES - Optimized for Visibility */
 /* ----------------------------------------------------------- */
 
-/* Remove Header and Caption */
-#batchmates h1, .batchmates-title { 
+#batchmates {
+    /* Use flexbox to vertically space content */
     display: none; 
-}
-
-.batchmates-grid-container {
-    width: 98%; max-width: 1400px; 
-    flex-grow: 1;
-    display: flex;
     flex-direction: column;
-    gap: 10px; 
+    justify-content: space-between; 
     align-items: center;
-    min-height: 0; 
-    overflow-y: hidden; 
-    padding: 0; 
-    height: 100%; 
+    
+    /* Background Image Settings - "Zoomed Out" effect */
+    background-image: url('https://lh3.googleusercontent.com/pw/AP1GczN6QwOYQeVPnOt0EZipscf6H5kvY9pMu4Dd1yhbeFJixx_f1Yy70P9D1-e040VDH-mFtqX_9ZxifA_WfqUPuFIAqsUrymo0KzSE-onJz8bEsEfpuKU=w2400');
+    background-size: cover; 
+    
+    /* UPDATED: Center horizontal, 60% vertical. Raised significantly to reveal people's heads. */
+    background-position: center 60%; 
+    background-repeat: no-repeat;
+    
+    position: relative;
+    overflow: hidden; 
 }
 
-/* 70% Image */
-.batchmate-image-frame {
+#batchmates.active {
+    display: flex;
+}
+
+/* Dark overlay - Reduced height so it doesn't cover the middle of the photo */
+#batchmates::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    max-width: 800px;
-    height: 70%; 
-    min-height: 0;
-    flex-shrink: 0;
-    border: 3px solid #bd93f9;
-    border-radius: 8px;
-    background: #333333;
+    height: 40%; /* To reveal more photo */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 10%, rgba(0,0,0,0.5) 80%, transparent 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* --- TITLES (Top) --- */
+#batchmates h1 { 
+    display: block; 
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 800;
+    font-size: 3.5rem; 
+    color: #9d4edd; /* Purple color matching the image */
+    text-align: center;
+    margin-top: 20px; 
+    margin-bottom: 0px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+    z-index: 2;
+    text-transform: none; 
+}
+
+.batch-subtitle {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 5px rgba(0,0,0,1);
+    z-index: 2;
+    margin-bottom: auto; 
+}
+
+/* --- NAMES LIST (Bottom) --- */
+.batchmates-grid-container {
+    width: 100%;
+    z-index: 2;
+    padding: 0 40px 60px 40px; 
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
-/* 30% Names Container */
-.batchmate-list-card {
-    width: 100%; 
-    height: 30%; 
-    min-height: 0; 
-    flex-grow: 0;
-    flex-shrink: 0;
-    
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 5px; 
-    border: 2px solid #00FFFF;
-    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2);
-    color: #ffffff;
-    
-    display: flex; 
-    flex-direction: column; 
-    overflow: hidden; 
-}
-
-.batchmate-list-header {
-    color: #00FFFF;
-    font-weight: 700;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-    flex-shrink: 0;
-    text-align: center;
-}
-
-/* 8 Columns Grid System */
 .batchmate-list-container {
-    flex-grow: 1; 
     width: 100%;
+    max-width: 1400px;
     display: grid;
-    grid-template-columns: repeat(8, 1fr); 
-    grid-template-rows: repeat(5, auto);
-    grid-auto-flow: column; 
-    gap: 2px; 
-    padding: 2px;
-    overflow: hidden; 
-    align-content: start;
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 2px 10px; /* MINIMIZED GAPS */
 }
 
 .batchmate-item {
-    text-align: left;
-    padding: 1px 2px;
+    color: #e0e0e0;
     font-size: 0.65rem; 
-    white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis;
-    cursor: pointer;
-    transition: color 0.2s;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    line-height: 1.2; 
+    font-weight: 500;
+    text-align: left;
+    white-space: nowrap;
+    text-shadow: 1px 1px 2px #000;
+    padding: 0; 
 }
 
-.batchmate-item:hover {
-    color: #00FFFF;
-    background: rgba(255,255,255,0.05);
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #batchmates { background-size: cover; background-position: center center; }
+    #batchmates h1 { font-size: 2rem; margin-top: 60px; } 
+    .batchmate-list-container { grid-template-columns: repeat(2, 1fr); gap: 1px 5px;}
+    .batchmates-grid-container { padding-bottom: 80px; }
 }
 
     </style>
@@ -659,7 +690,7 @@
                         <span class="edu-year">2018-2019</span>
                     </div>
                     <div class="school-image-placeholder">
-                        <img src="https://placehold.co/180x150/388E3C/FFFFFF?text=GRADES" alt="School Image">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczMa-P0DR_mjlFPM2ZwDJuZyZ2nZLjKD-OMLiowXoGY2VmnFVSPFSZ9pVaHByr0fJaLm1cvjUhcWycrWcmSr4aQ4FnQtYgBLuOMAPW5KTTvwy4HkqPo=w2400">
                     </div>
                 </div>
 
@@ -675,7 +706,7 @@
                         <span class="edu-year">2022-2023</span>
                     </div>
                     <div class="school-image-placeholder">
-                        <img src="https://placehold.co/180x150/388E3C/FFFFFF?text=DIPLOMA" alt="School Image">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczOni8Otas9pDQKZeEAW0aU6C_pV_5-PKe25aRf5kcSbW_0hZKKP2Hq3VVJjGcJkyzeSjdffG8nqTWF5hQLeUm5VnMHkKIJ5qB8wmzgoHz16lfA-pus=w2400">
                     </div>
                 </div>
 
@@ -692,7 +723,7 @@
                         <span class="edu-year">With Honors | 2024-2025</span>
                     </div>
                     <div class="school-image-placeholder">
-                        <img src="https://placehold.co/180x150/388E3C/FFFFFF?text=HONORS" alt="School Image">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczN5nZ9u7Tu8MRhWKoxP8PYOjbJYopKXrcP-aqNdeDlRsoqyil4x-ksM2ZNdhk06NndROGSQaIRPZXtKAAYdlGidaHdOxLLwvLOdofh5OhMdfX1u9RY=w2400">
                     </div>
                 </div>
 
@@ -709,7 +740,7 @@
                         <span class="edu-year">Current Enrollee</span>
                     </div>
                     <div class="school-image-placeholder">
-                        <img src="https://placehold.co/180x150/388E3C/FFFFFF?text=STUDENT" alt="School Image">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczPCFFYE0XZWHzMkN2L0foAOoHELGl7bLrAyNVwIgzV3knw_zccpq7uWW_wcecXv9e0NfGKHabRfOBbCuhnoO0XDlSL7gcFfHKnUYf_hthwMzMJgJ94=w2400">
                     </div>
                 </div>
             </div>
@@ -846,72 +877,59 @@
     </div>
     
  <div class="page" id="batchmates">
-    <div class="page-content-wrapper animate-in" style="padding-bottom: 80px;">
-        
-        <div class="batchmates-grid-container">
+    
+    <h1 class="animate-in">PATIbayan</h1>
+    <div class="batch-subtitle animate-in">CITCS 1B - GROUP B</div>
 
-            <div class="batchmate-image-frame">
-                <img 
-                    src="https://lh3.googleusercontent.com/pw/AP1GczN6QwOYQeVPnOt0EZipscf6H5kvY9pMu4Dd1yhbeFJixx_f1Yy70P9D1-e040VDH-mFtqX_9ZxifA_WfqUPuFIAqsUrymo0KzSE-onJz8bEsEfpuKU=w2400"
-                    alt="Group photo of batchmates"
-                    onerror="this.onerror=null; this.src='https://placehold.co/800x400/333333/FFFFFF?text=Batchmates+Photo';"
-                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;"
-                >
-            </div>
+    <div class="batchmates-grid-container animate-in">
+        <div class="batchmate-list-container">
+            <div class="batchmate-item">AGUILAR, STEPHEN NASH</div>
+            <div class="batchmate-item">AGUSTIN, JHON RUMSY</div>
+            <div class="batchmate-item">ALMUETE, EDMAR</div>
+            <div class="batchmate-item">BAL-UT, SHAWN MICHAEL</div>
+            <div class="batchmate-item">BALLESIL, JOHN PATRICK</div>
+            <div class="batchmate-item">BANOGON, CLARENCE JAMES</div>
+            <div class="batchmate-item">BANTIAN, JERWIN</div>
+            <div class="batchmate-item">BARNACHEA, ZP CREY</div>
 
-            <div class="batchmate-list-card">
-                <div class="batchmate-list-header">PATIbayan</div> <div class="batchmate-list-container">
-                    <div class="batchmate-item">1. Aguilar, Stephen Nash C.</div>
-                    <div class="batchmate-item">2. Agustin, Jhon Rumsy</div>
-                    <div class="batchmate-item">3. Almuete, Edmar P.</div>
-                    <div class="batchmate-item">4. Bal-ut, Shawn Michael T.</div>
-                    <div class="batchmate-item">5. Ballesil, John Patrick C.</div>
-                    
-                    <div class="batchmate-item">6. Banogon, Clarence James P.</div>
-                    <div class="batchmate-item">7. Bantian, Jerwin B.</div>
-                    <div class="batchmate-item">8. Barnachea, Zp Crey M.</div>
-                    <div class="batchmate-item">9. Barnayha, James Maverick R.</div>
-                    <div class="batchmate-item">10. Basile, Patrick A.</div>
+            <div class="batchmate-item">BARNAYHA, JAMES MAVERICK</div>
+            <div class="batchmate-item">BASILE, PATRICK</div>
+            <div class="batchmate-item">CADIZ, JAMES CHRISTIAN</div>
+            <div class="batchmate-item">CANUTAB, DHARYL</div>
+            <div class="batchmate-item">CAVA ARTHUR REY</div>
+            <div class="batchmate-item">CEYNAS, DEVON ANGELO</div>
+            <div class="batchmate-item">CLAVERIA, MARK ANJO</div>
+            <div class="batchmate-item">DAMASO, ROBERT EMMANUEL</div>
 
-                    <div class="batchmate-item">11. Cadiz, James Christian B.</div>
-                    <div class="batchmate-item">12. Canutab, Dharyl S.</div>
-                    <div class="batchmate-item">13. Cava Arthur Rey F.</div>
-                    <div class="batchmate-item">14. Ceynas, Devon Angelo M.</div>
-                    <div class="batchmate-item">15. Claveria, Mark Anjo S.</div>
+            <div class="batchmate-item">DELAMASA, GIO</div>
+            <div class="batchmate-item">EMILIO, KARL ALDRINE</div>
+            <div class="batchmate-item">ESMUNDO, JADEN</div>
+            <div class="batchmate-item">FAGCAYANG, ABRAHAM</div>
+            <div class="batchmate-item">FERNANDEZ, RALPH MICHAEL</div>
+            <div class="batchmate-item">GALINGAN, LEEYAM DRAKE</div>
+            <div class="batchmate-item">GANADO, MARL JULIAN</div>
+            <div class="batchmate-item">GAVINO, ARON KENT</div>
 
-                    <div class="batchmate-item">16. Damaso, Robert Emmanuel L.</div>
-                    <div class="batchmate-item">17. DelaMasa, Gio D.</div>
-                    <div class="batchmate-item">18. Emilio, Karl Aldrine M.</div>
-                    <div class="batchmate-item">19. Esmundo, Jaden O.</div>
-                    <div class="batchmate-item">20. Fagcayang, Abraham S.</div>
-
-                    <div class="batchmate-item">21. Fernandez, Ralph Michael B.</div>
-                    <div class="batchmate-item">22. Galingan, Leeyam Drake T.</div>
-                    <div class="batchmate-item">23. Ganado, Marl Julian L.</div>
-                    <div class="batchmate-item">24. Gavino, Aron Kent P.</div>
-                    <div class="batchmate-item">25. Gonzales, Ace A.</div>
-
-                    <div class="batchmate-item">26. Mejia, Russel Edward A,</div>
-                    <div class="batchmate-item">27. Murillio, Ramon M.</div>
-                    <div class="batchmate-item">28. Nadjahan, Kenneth K.</div>
-                    <div class="batchmate-item">29. Oblena, Wyeth Codie G.</div>
-                    <div class="batchmate-item">30. Peckley, Freya Dawani P.</div>
-
-                    <div class="batchmate-item">31. Pecsoy, Denmark N.</div>
-                    <div class="batchmate-item">32. Pomilban, John Zedrick B.</div>
-                    <div class="batchmate-item">33. Pundo, Ram Ivory K.</div>
-                    <div class="batchmate-item">34. Sidchayao, Edcel G.</div>
-                    <div class="batchmate-item">35. Tengay, Shiela Mar G.</div>
-
-                    <div class="batchmate-item">36. Ucol, Raiah Crista C.</div>
-                    <div class="batchmate-item">37. Umotoy, manuel Jun V.</div>
-                    </div>
-            </div>
+            <div class="batchmate-item">GONZALES, ACE</div>
+            <div class="batchmate-item">MEJIA, RUSSEL EDWARD</div>
+            <div class="batchmate-item">MURILLIO, RAMON</div>
+            <div class="batchmate-item">NADJAHAN, KENNETH</div>
+            <div class="batchmate-item">OBLENA, WYETH CODIE</div>
+            <div class="batchmate-item">PECKLEY, FREYA DAWANI</div>
+            <div class="batchmate-item">PECSOY, DENMARK</div>
+            <div class="batchmate-item">POMILBAN, JOHN ZEDRICK</div>
+            
+            <div class="batchmate-item">PUNDO, RAM IVORY</div>
+            <div class="batchmate-item">SIDCHAYAO, EDCEL</div>
+            <div class="batchmate-item">TENGAY, SHIELA MAR</div>
+            <div class="batchmate-item">UCOL, RAIAH CRISTA</div>
+            <div class="batchmate-item">UMOTOY, MANUEL JUN</div>
         </div>
     </div>
-        <div class="nav-button-container">
-            <button class="nav-button nav-button-back" onclick="showPage('family')"> Previous</button>
-        </div>
+
+    <div class="nav-button-container">
+        <button class="nav-button nav-button-back" onclick="showPage('family')"> Previous</button>
+    </div>
  </div>
 
     <script>
@@ -929,7 +947,11 @@
             const targetPage = document.getElementById(pageId);
             if (targetPage) {
                 targetPage.classList.add('active');
-                targetPage.querySelector('.page-content-wrapper, .home-content').classList.add('animate-in');
+                // Ensure correct element for animation is selected based on page type
+                const contentWrapper = targetPage.querySelector('.page-content-wrapper, .home-content, .batchmates-grid-container');
+                if (contentWrapper) {
+                    contentWrapper.classList.add('animate-in');
+                }
                 document.getElementById('nav-' + pageId).classList.add('nav-active');
             }
         }
