@@ -305,61 +305,104 @@
              }
         }
         
-        /* --- EDUCATION SPECIFIC STYLES (CYAN ACCENTS) --- */
+         /* ------------------------------------------------------------------------------------------------------ */
+        /* ✨ NEW EDUCATION CARD STYLES (FROM USER REQUEST) ✨ */
+        /* ------------------------------------------------------------------------------------------------------ */
+        
+        /* Education Card Container for Horizontal Wrapping (Replaced .card-container default for #education) */
+        .edu-card-container {
+            display: flex; 		
+            flex-direction: row;	
+            flex-wrap: wrap; 		
+            justify-content: center; 
+            align-items: flex-start;	
+            width: 100%; 			
+            max-width: 1000px; /* Inherited from .card-container, set max-width for consistency */
+            gap: 15px; 			
+            padding: 10px 0;
+        }
+
         .edu-card-item {
-            background: #1c1c1c;
-            border-radius: 10px;
-            padding: 15px;
+            /* Fixed Size */
+            width: 200px; 			
+            height: 420px; 		
+            flex-shrink: 0; 		
+
+            /* APPEARANCE */
+            background-color: rgba(0, 0, 0, 0.4); 
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2); 
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); 
+            padding: 1.5rem; 
+            
+            /* LAYOUT */
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 	
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            margin-left: auto;
-            margin-right: auto;
+            
+            /* TRANSITION */
+            transition: transform 300ms, box-shadow 300ms;
         }
+        
         .edu-card-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.4);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
         }
-        .edu-details {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 10px;
-            flex-grow: 1;
-            justify-content: center;
-        }
-        .edu-level { 
-            font-weight: 700; 
-            color: #00FFFF;
-            font-size: 1.1rem; 
-            margin-bottom: 5px; 
-        }
-        .edu-name { 
-            font-size: 0.9rem; 
-            color: #b0b0b0; 
-            line-height: 1.3; 
-        }
+
+        /* Circular Logo Placeholder */
         .logo-frame-edu {
-            width: 80px; height: 80px;
-            border: 2px solid #555555;
-            border-radius: 50%;
+            width: 60px; height: 60px; 
+            border: 2px solid #00FFFF; 
+            border-radius: 50%; 
             display: flex; justify-content: center; align-items: center;
             color: #333333; font-size: 10px;
             background: #dddddd;
             flex-shrink: 0;
-            margin-top: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
             overflow: hidden;
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
         }
         .logo-frame-edu img {
             width: 100%; height: 100%;
             object-fit: cover;
             border-radius: 50%;
         }
+        .edu-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 0;
+        }
+        .edu-level { font-weight: 700; color: #00FFFF; font-size: 1.0rem; margin-bottom: 5px; } 
+        .edu-name { font-size: 0.85rem; color: #b0b0b0; line-height: 1.3; } 
+        .edu-year, .edu-track { font-size: 0.75rem; color: #707070; line-height: 1.2; } 
 
+
+        /* --- IMAGE PLACEHOLDER STYLES (New for Education Card) --- */
+        .school-image-placeholder {
+            flex-grow: 1; 
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-end; 	
+            width: 100%;
+            padding-bottom: 0; 
+            min-height: 120px; 
+        }
+
+        .school-image-placeholder img {
+            width: 100%;
+            max-width: 180px; 
+            height: 150px; 
+            border-radius: 5px;
+            object-fit: cover;
+            background-color: #388E3C; 
+            border: 1px solid #C8E6C9;
+        }
+        /* ------------------------------------------------------------------------------------------------------ */
+        /* ✨ END NEW EDUCATION CARD STYLES ✨ */
+        /* ------------------------------------------------------------------------------------------------------ */
         /* --- ACHIEVEMENTS SPECIFIC STYLES (GOLD ACCENTS) --- */
         .ach-card-item { 
             background: #1c1c1c;
@@ -655,20 +698,24 @@
         </div>
     </div>
 
-    <div class="page" id="education">
+   <div class="page" id="education">
         <div class="page-content-wrapper animate-in">
             <h1>EDUCATIONAL BACKGROUND</h1>
 
-            <div class="card-container">
+            <div class="edu-card-container">
                 <div class="edu-card-item">
                     <div class="logo-frame-edu">
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczOBToSXJyGegXvEWNIQnYxXYGzw9mLrDhmfRfyufsRXvGoetfl5k_n6TL_3_55Tpv6xNy9uxlqYIj2FzpfI493I97cYqSq5bSMkNyyaDwyJjtvulhs=w2400"
                             alt="Elementary School Logo"
-                            onerror="this.onerror=null; this.src='https://placehold.co/80x80/dddddd/333333?text=Error';">
+                            onerror="this.onerror=null; this.src='https://placehold.co/60x60/00FFFF/333333?text=ELEM';">
                     </div>
                     <div class="edu-details">
                         <span class="edu-level">Tocucan Elementary School</span>
-                        <span class="edu-name">Elementary School<br>2018-2019</span>
+                        <span class="edu-name">Elementary School</span>
+                        <span class="edu-year">2018-2019</span>
+                    </div>
+                    <div class="school-image-placeholder">
+                        <img src="https://placehold.co/180x150/388E3C/FFFFFF?text=GRADES" alt="School Image">
                     </div>
                 </div>
 
@@ -676,11 +723,15 @@
                     <div class="logo-frame-edu">
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczMO_J83_QeS7bYuztF4-4Z81rtVK8yU1IM1NlE4Dgp4ve6HVdbVju9PBUKMAPQzs48Dq9-4ZAostbJH1IcNnnNinS5MFtkiBeKAVrJeSXAAw-2fsOo=w2400"
                             alt="Junior High School Logo"
-                            onerror="this.onerror=null; this.src='https://placehold.co/80x80/dddddd/333333?text=Error';">
+                            onerror="this.onerror=null; this.src='https://placehold.co/60x60/00FFFF/333333?text=JHS';">
                     </div>
                     <div class="edu-details">
                         <span class="edu-level">Mt. Province General Comprehensive Highschool</span>
-                        <span class="edu-name">Junior Highschool<br>2022-2023</span>
+                        <span class="edu-name">Junior Highschool</span>
+                        <span class="edu-year">2022-2023</span>
+                    </div>
+                    <div class="school-image-placeholder">
+                        <img src="https://placehold.co/180x150/388E3C/FFFFFF?text=DIPLOMA" alt="School Image">
                     </div>
                 </div>
 
@@ -688,11 +739,16 @@
                     <div class="logo-frame-edu">
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczO4YqjdjDnJAu4do8Cx6CUWM-thgPbhy3kyISwEoOsXrNXnhBYnPqZJ00-JtRpN7Q1oUR7WbEO8fJPeYCZIZt2iSjkjZsIin2BJdSRkx9VsqAVQwU4=w2400"
                             alt="Senior High School Logo"
-                            onerror="this.onerror=null; this.src='https://placehold.co/80x80/dddddd/333333?text=Error';">
+                            onerror="this.onerror=null; this.src='https://placehold.co/60x60/00FFFF/333333?text=SHS';">
                     </div>
                     <div class="edu-details">
                         <span class="edu-level">All Saints Mission School of Mt. Province Inc.</span>
-                        <span class="edu-name">Senior Highschool<br>Track: Humanities and Social Sciences<br>With Honors<br>2024-2025</span>
+                        <span class="edu-name">Senior Highschool</span>
+                        <span class="edu-track">Track: Humanities and Social Sciences</span>
+                        <span class="edu-year">With Honors | 2024-2025</span>
+                    </div>
+                    <div class="school-image-placeholder">
+                        <img src="https://placehold.co/180x150/388E3C/FFFFFF?text=HONORS" alt="School Image">
                     </div>
                 </div>
 
@@ -700,21 +756,27 @@
                     <div class="logo-frame-edu">
                         <img src="https://lh3.googleusercontent.com/pw/AP1GczO5hJlqwuUsm4aSPIA0RB4GUWm5C9j0C7c__CzzH6iAgFrOebx77G5zFDIoE4sVn0S3uEc4LHWs3M7UReseqnkKLZoJSiQ_DSmXeBB77LV4FNN-wto=w2400"
                             alt="University Logo"
-                            onerror="this.onerror=null; this.src='https://placehold.co/80x80/dddddd/333333?text=Error';">
+                            onerror="this.onerror=null; this.src='https://placehold.co/60x60/00FFFF/333333?text=UNI';">
                     </div>
                     <div class="edu-details">
                         <span class="edu-level">University of the Cordilleras</span>
-                        <span class="edu-name">Bachelor in Science in <br>Information Technology-<br>Enterprise Resource Planning</span>
+                        <span class="edu-name">Bachelor in Science in Information Technology</span>
+                        <span class="edu-track">Specialization: Enterprise Resource Planning</span>
+                        <span class="edu-year">Current Enrollee</span>
+                    </div>
+                    <div class="school-image-placeholder">
+                        <img src="https://placehold.co/180x150/388E3C/FFFFFF?text=STUDENT" alt="School Image">
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
 
         <div class="nav-button-container">
             <button class="nav-button nav-button-back" onclick="showPage('home')"> Previous</button>
             <button class="nav-button nav-button-next" onclick="showPage('achievements')">Next </button>
         </div>
     </div>
+
 
     <div class="page" id="achievements">
         <div class="page-content-wrapper animate-in">
@@ -940,4 +1002,3 @@
     </script>
 </body>
 </html>
-
