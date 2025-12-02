@@ -106,7 +106,7 @@
             height: calc(100vh - 65px);
             display: none;
             padding: 20px;
-            overflow: hidden; 
+            overflow: hidden; /* GLOBAL: No scrolling on the page container */
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
@@ -118,7 +118,6 @@
 .nav-button-container {
     position: absolute;
     bottom: 20px; 
-    /* FIX: Adjusted from 20px to 50px to move the buttons 30px closer to the center */
     right: 50px; 
     left: auto; 
     display: flex;
@@ -128,18 +127,6 @@
     flex-shrink: 0;
     z-index: 5; 
 }
-
-/* Ensure the specific override for the batchmates page is also updated */
-#batchmates .nav-button-container {
-    display: flex; 
-    justify-content: flex-end; 
-    bottom: 20px; 
-    /* FIX: Applied the same 50px right offset here */
-    right: 50px; 
-    left: auto; 
-    width: auto; 
-}
-        }
         
         .nav-button {
             padding: 10px 25px;
@@ -254,9 +241,8 @@
             justify-content: flex-start; 
             flex-grow: 1;
             width: 100%;
-            /* ⭐️ ADJUSTED PADDING ⭐️ */
             padding: 0 0 80px 0; 
-            overflow-y: auto; 
+            overflow-y: hidden; /* GLOBAL: Removed scrolling feature */
             overflow-x: hidden;
             min-height: 0; 
         }
@@ -264,7 +250,7 @@
 
         @media (max-width: 767px) {
              .page-content-wrapper {
-                 overflow-y: auto;
+                 overflow-y: hidden; /* GLOBAL: Removed scrolling feature */
              }
         }
         /* Card Container Styling - Used for Education, Achievements, Family */
@@ -278,6 +264,7 @@
             justify-content: center;
             flex-wrap: wrap;
             padding-bottom: 10px; 
+            overflow: hidden; 
         }
         @media (max-width: 767px) {
              .card-container {
@@ -293,8 +280,8 @@
                  align-items: stretch;
                  justify-content: space-between;
              }
-             .edu-card-item, .ach-card-item { 
-                 width: 23%;
+             .edu-card-item { 
+                 width: 23%; 
                  min-height: 250px; 
                  margin-bottom: 5px; 
              }
@@ -305,43 +292,32 @@
              }
         }
         
-         /* ------------------------------------------------------------------------------------------------------ */
-        /* ✨ NEW EDUCATION CARD STYLES (FROM USER REQUEST) ✨ */
-        /* ------------------------------------------------------------------------------------------------------ */
-        
-        /* Education Card Container for Horizontal Wrapping (Replaced .card-container default for #education) */
+        /* Education Card Container */
         .edu-card-container {
-            display: flex; 		
-            flex-direction: row;	
-            flex-wrap: wrap; 		
+            display: flex;      
+            flex-direction: row;    
+            flex-wrap: wrap;        
             justify-content: center; 
-            align-items: flex-start;	
-            width: 100%; 			
-            max-width: 1000px; /* Inherited from .card-container, set max-width for consistency */
-            gap: 15px; 			
+            align-items: flex-start;    
+            width: 100%;            
+            max-width: 1000px; 
+            gap: 15px;          
             padding: 10px 0;
         }
 
         .edu-card-item {
-            /* Fixed Size */
-            width: 200px; 			
-            height: 420px; 		
-            flex-shrink: 0; 		
-
-            /* APPEARANCE */
+            width: 200px;           
+            height: 420px;      
+            flex-shrink: 0;         
             background-color: rgba(0, 0, 0, 0.4); 
             border-radius: 1rem;
             border: 1px solid rgba(255, 255, 255, 0.2); 
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); 
             padding: 1.5rem; 
-            
-            /* LAYOUT */
             display: flex;
             flex-direction: column; 
-            align-items: center; 	
+            align-items: center;    
             text-align: center;
-            
-            /* TRANSITION */
             transition: transform 300ms, box-shadow 300ms;
         }
         
@@ -350,7 +326,6 @@
             box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
         }
 
-        /* Circular Logo Placeholder */
         .logo-frame-edu {
             width: 60px; height: 60px; 
             border: 2px solid #00FFFF; 
@@ -379,13 +354,11 @@
         .edu-name { font-size: 0.85rem; color: #b0b0b0; line-height: 1.3; } 
         .edu-year, .edu-track { font-size: 0.75rem; color: #707070; line-height: 1.2; } 
 
-
-        /* --- IMAGE PLACEHOLDER STYLES (New for Education Card) --- */
         .school-image-placeholder {
             flex-grow: 1; 
             display: flex; 
             justify-content: center; 
-            align-items: flex-end; 	
+            align-items: flex-end;  
             width: 100%;
             padding-bottom: 0; 
             min-height: 120px; 
@@ -400,10 +373,8 @@
             background-color: #388E3C; 
             border: 1px solid #C8E6C9;
         }
-        /* ------------------------------------------------------------------------------------------------------ */
-        /* ✨ END NEW EDUCATION CARD STYLES ✨ */
-        /* ------------------------------------------------------------------------------------------------------ */
-        /* --- ACHIEVEMENTS SPECIFIC STYLES (GOLD ACCENTS) --- */
+        
+        /* --- ⭐️ ACHIEVEMENTS SPECIFIC STYLES (Page 3) ⭐️ --- */
         .ach-card-item { 
             background: #1c1c1c;
             border-radius: 10px;
@@ -420,13 +391,16 @@
             overflow: hidden;
             width: 95%; 
             max-width: 320px;
+            max-height: 50vh; 
         }
+        
         @media (min-width: 768px) {
             .ach-card-item {
-                width: 23%; 
-                min-height: 250px; 
+                width: 48%; 
+                min-height: auto; 
             }
         }
+        
         .ach-card-item:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4); 
@@ -440,6 +414,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            max-height: 150px; /* Mas pinaliit pa */
         }
         .ach-image-container img {
             width: 100%;
@@ -448,7 +423,7 @@
         }
         
         .ach-text-content {
-            padding: 15px;
+            padding: 8px; /* Pinaliit pa mula 10px */
             color: #b0b0b0;
             flex-grow: 1;
             width: 100%;
@@ -457,27 +432,26 @@
         .ach-level { 
             font-weight: 700; 
             color: #FFD700; 
-            font-size: 1.1rem; 
-            margin-bottom: 5px; 
+            font-size: 0.9rem; /* Pinaliit pa mula 1.0rem */
+            margin-bottom: 3px; 
             text-align: left; 
         }
         .ach-name { 
-            font-size: 0.9rem; 
+            font-size: 0.7rem; /* Pinaliit pa mula 0.8rem */
             color: #b0b0b0; 
-            line-height: 1.4; 
+            line-height: 1.3; 
             text-align: left; 
         }
         .logo-frame-ach, .ach-details {
             display: none;
         }
 
-        /* --- FAMILY PAGE SPECIFIC STYLES (BLUE/AQUA ACCENTS) --- */
+        /* --- FAMILY PAGE SPECIFIC STYLES --- */
         #family h1 { 
             color: #ffffff;
             margin-bottom: 20px;
             font-size: 32px;
         }
-        /* Removed card container margin-bottom since page-content-wrapper padding handles spacing */
         
         .family-card-item {
             background: #1c1c1c;
@@ -532,133 +506,103 @@
             line-height: 1.4;
         }
 
-/* --- BATCHMATES PAGE SPECIFIC STYLES (MODIFIED) --- */
+/* ----------------------------------------------------------- */
+/* BATCHMATES PAGE STYLES - 70/30 SPLIT, No Scroll */
+/* ----------------------------------------------------------- */
 
-#batchmates h1 {
-    color: #bd93f9;
-    margin-top: 5px;
-    margin-bottom: 10px;
-}
-.batchmates-title {
-    font-size: 1.0em;
-    font-weight: 700;
-    color: #bd93f9;
-    margin-bottom: 10px;
-    display: block;
-}
-@media (min-width: 768px) {
-    .batchmates-title {
-        font-size: 1.6em;
-        margin-bottom: 15px;
-    }
+/* Remove Header and Caption */
+#batchmates h1, .batchmates-title { 
+    display: none; 
 }
 
 .batchmates-grid-container {
-    width: 95%;
-    max-width: 1000px;
+    width: 98%; max-width: 1400px; 
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px; 
     align-items: center;
-    min-height: 0;
-    overflow-y: hidden;
+    min-height: 0; 
+    overflow-y: hidden; 
+    padding: 0; 
+    height: 100%; 
 }
 
-@media (min-width: 768px) {
-    .batchmates-grid-container {
-        display: grid;
-        /* FIX: Adjusted grid ratio from 2fr 1fr to 3fr 2fr (or similar) to give the list card more width */
-        grid-template-columns: 3fr 2fr; 
-        align-items: stretch;
-        gap: 25px;
-    }
-}
-
+/* 70% Image */
 .batchmate-image-frame {
     width: 100%;
-    height: auto;
-    flex-grow: 1;
-    min-height: 300px;
+    max-width: 800px;
+    height: 70%; 
+    min-height: 0;
+    flex-shrink: 0;
     border: 3px solid #bd93f9;
     border-radius: 8px;
     background: #333333;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-shrink: 0;
-}
-.batchmate-image-frame p {
-    color: #ffffff;
-    font-size: 2rem;
-    font-weight: 600;
 }
 
+/* 30% Names Container */
 .batchmate-list-card {
     width: 100%; 
-    height: auto; 
-    flex-grow: 1;
-    min-height: 300px;
+    height: 30%; 
+    min-height: 0; 
+    flex-grow: 0;
+    flex-shrink: 0;
+    
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    padding: 15px;
+    padding: 5px; 
     border: 2px solid #00FFFF;
     box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2);
     color: #ffffff;
     
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    
-    /* FIX: Temporarily allowing overflow here to contain the content */
+    display: flex; 
+    flex-direction: column; 
     overflow: hidden; 
-    position: relative;
 }
 
+.batchmate-list-header {
+    color: #00FFFF;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+/* 8 Columns Grid System */
 .batchmate-list-container {
-    flex-grow: 1;
-    padding: 5px 0 0 0;
-    
-    /* FIX: Changed back to overflow: hidden; to remove scrollbar
-       If the content still overflows vertically, you will need to accept scrolling or reduce the font size. */
-    overflow-y: hidden;
-    overflow-x: hidden;
-    
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    justify-content: space-between;
-    
-    /* Remove custom scrollbar styles as scrolling is requested to be removed */
-    scrollbar-width: none;
-}
-.batchmate-list-container::-webkit-scrollbar {
-    display: none;
+    flex-grow: 1; 
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr); 
+    grid-template-rows: repeat(5, auto);
+    grid-auto-flow: column; 
+    gap: 2px; 
+    padding: 2px;
+    overflow: hidden; 
+    align-content: start;
 }
 
-
-.batchmate-list-container ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    /* FIX: Increased width from 48% to 49.5% to give list items more space and ensure a small gap */
-    width: 49.5%; 
-}
-
-.batchmate-list-container li {
+.batchmate-item {
     text-align: left;
-    padding: 2px 0;
-    /* Consider slightly smaller font if names are still cut off */
-    font-size: 0.85rem; 
-    line-height: 1.1;
-    /* Removed white-space: nowrap to allow wrapping */
+    padding: 1px 2px;
+    font-size: 0.65rem; 
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
     cursor: pointer;
     transition: color 0.2s;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.batchmate-list-container li:hover {
+.batchmate-item:hover {
     color: #00FFFF;
+    background: rgba(255,255,255,0.05);
 }
+
     </style>
 </head>
 <body>
@@ -888,7 +832,7 @@
                     <div class="family-text-content">
                         <div class="family-title">My Friends (A true second family)</div>
                         <div class="family-description">
-                           A collection of supportive friends who have become like family. They are the ones who share my laughter and lend an ear during tough times, constantly reminding me that I am never alone.
+                            A collection of supportive friends who have become like family. They are the ones who share my laughter and lend an ear during tough times, constantly reminding me that I am never alone.
                         </div>
                     </div>
                 </div>
@@ -902,9 +846,7 @@
     </div>
     
  <div class="page" id="batchmates">
-    <div class="page-content-wrapper animate-in">
-        <h1>MY BATCHMATES</h1>
-        <span class="batchmates-title">PATIgasan</span>
+    <div class="page-content-wrapper animate-in" style="padding-bottom: 80px;">
         
         <div class="batchmates-grid-container">
 
@@ -912,92 +854,99 @@
                 <img 
                     src="https://lh3.googleusercontent.com/pw/AP1GczN6QwOYQeVPnOt0EZipscf6H5kvY9pMu4Dd1yhbeFJixx_f1Yy70P9D1-e040VDH-mFtqX_9ZxifA_WfqUPuFIAqsUrymo0KzSE-onJz8bEsEfpuKU=w2400"
                     alt="Group photo of batchmates"
-                    onerror="this.onerror=null; this.src='https://placehold.co/400x300/333333/FFFFFF?text=Batchmates+Photo';"
+                    onerror="this.onerror=null; this.src='https://placehold.co/800x400/333333/FFFFFF?text=Batchmates+Photo';"
                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;"
                 >
-                </div>
+            </div>
 
             <div class="batchmate-list-card">
-                
-                <div class="batchmate-list-container">
-                        
-                        <ul>
-                            <li>1. Aguilar, Stephen Nash C.</li>
-                            <li>2. Agustin, Jhon Rumsy</li>
-                            <li>3. Almuete, Edmar P.</li>
-                            <li>4. Bal-ut, Shawn Michael T.</li>
-                            <li>5. Ballesil, John Patrick C.</li>
-                            <li>6. Banogon, Clarence James P.</li>
-                            <li>7. Bantian, Jerwin B.</li>
-                            <li>8. Barnachea, Zp Crey M.</li>
-                            <li>9. Barnayha, James Maverick R.</li>
-                            <li>10. Basile, Patrick A.</li>
-                            <li>11. Cadiz, James Christian B.</li>
-                            <li>12. Canutab, Dharyl S.</li>
-                            <li>13. Cava Arthur Rey F.</li>
-                            <li>14. Ceynas, Devon Angelo M.</li>
-                            <li>15. Claveria, Mark Anjo S.</li>
-                            <li>16. Damaso, Robert Emmanuel L.</li>
-                            <li>17. DelaMasa, Gio D.</li>
-                            <li>18. Emilio, Karl Aldrine M.</li>
-                            <li>19. Esmundo, Jaden O.</li>
-                        </ul>
-                        
-                        <ul>
-                            <li>20. Fagcayang, Abraham S.</li>
-                            <li>21. Fernandez, Ralph Michael B.</li>
-                            <li>22. Galingan, Leeyam Drake T.</li>
-                            <li>23. Ganado, Marl Julian L.</li>
-                            <li>24. Gavino, Aron Kent P.</li>
-                            <li>25. Gonzales, Ace A.</li>
-                            <li>26. Mejia, Russel Edward A,</li>
-                            <li>27. Murillio, Ramon M.</li>
-                            <li>28. Nadjahan, Kenneth K.</li>
-                            <li>29. Oblena, Wyeth Codie G.</li>
-                            <li>30. Peckley, Freya Dawani P.</li>
-                            <li>31. Pecsoy, Denmark N.</li>
-                            <li>32. Pomilban, John Zedrick B.</li>
-                            <li>33. Pundo, Ram Ivory K.</li>
-                            <li>34. Sidchayao, Edcel G.</li>
-                            <li>35. Tengay, Shiela Mar G.</li>
-                            <li>36. Ucol, Raiah Crista C.</li>
-                            <li>37. Umotoy, manuel Jun V.</li>
-                        </ul>
-                        
+                <div class="batchmate-list-header">PATIbayan</div> <div class="batchmate-list-container">
+                    <div class="batchmate-item">1. Aguilar, Stephen Nash C.</div>
+                    <div class="batchmate-item">2. Agustin, Jhon Rumsy</div>
+                    <div class="batchmate-item">3. Almuete, Edmar P.</div>
+                    <div class="batchmate-item">4. Bal-ut, Shawn Michael T.</div>
+                    <div class="batchmate-item">5. Ballesil, John Patrick C.</div>
+                    
+                    <div class="batchmate-item">6. Banogon, Clarence James P.</div>
+                    <div class="batchmate-item">7. Bantian, Jerwin B.</div>
+                    <div class="batchmate-item">8. Barnachea, Zp Crey M.</div>
+                    <div class="batchmate-item">9. Barnayha, James Maverick R.</div>
+                    <div class="batchmate-item">10. Basile, Patrick A.</div>
+
+                    <div class="batchmate-item">11. Cadiz, James Christian B.</div>
+                    <div class="batchmate-item">12. Canutab, Dharyl S.</div>
+                    <div class="batchmate-item">13. Cava Arthur Rey F.</div>
+                    <div class="batchmate-item">14. Ceynas, Devon Angelo M.</div>
+                    <div class="batchmate-item">15. Claveria, Mark Anjo S.</div>
+
+                    <div class="batchmate-item">16. Damaso, Robert Emmanuel L.</div>
+                    <div class="batchmate-item">17. DelaMasa, Gio D.</div>
+                    <div class="batchmate-item">18. Emilio, Karl Aldrine M.</div>
+                    <div class="batchmate-item">19. Esmundo, Jaden O.</div>
+                    <div class="batchmate-item">20. Fagcayang, Abraham S.</div>
+
+                    <div class="batchmate-item">21. Fernandez, Ralph Michael B.</div>
+                    <div class="batchmate-item">22. Galingan, Leeyam Drake T.</div>
+                    <div class="batchmate-item">23. Ganado, Marl Julian L.</div>
+                    <div class="batchmate-item">24. Gavino, Aron Kent P.</div>
+                    <div class="batchmate-item">25. Gonzales, Ace A.</div>
+
+                    <div class="batchmate-item">26. Mejia, Russel Edward A,</div>
+                    <div class="batchmate-item">27. Murillio, Ramon M.</div>
+                    <div class="batchmate-item">28. Nadjahan, Kenneth K.</div>
+                    <div class="batchmate-item">29. Oblena, Wyeth Codie G.</div>
+                    <div class="batchmate-item">30. Peckley, Freya Dawani P.</div>
+
+                    <div class="batchmate-item">31. Pecsoy, Denmark N.</div>
+                    <div class="batchmate-item">32. Pomilban, John Zedrick B.</div>
+                    <div class="batchmate-item">33. Pundo, Ram Ivory K.</div>
+                    <div class="batchmate-item">34. Sidchayao, Edcel G.</div>
+                    <div class="batchmate-item">35. Tengay, Shiela Mar G.</div>
+
+                    <div class="batchmate-item">36. Ucol, Raiah Crista C.</div>
+                    <div class="batchmate-item">37. Umotoy, manuel Jun V.</div>
                     </div>
-                    </div>
-                </div>
             </div>
-        
-        <div class="nav-button-container">
-            <button class="nav-button nav-button-back" onclick="showPage('family')">Previous</button>
         </div>
     </div>
+        <div class="nav-button-container">
+            <button class="nav-button nav-button-back" onclick="showPage('family')"> Previous</button>
+        </div>
+ </div>
+
     <script>
         function showPage(pageId) {
             // Hide all pages
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
-            // Show the requested page
-            const activePage = document.getElementById(pageId);
-            if (activePage) {
-                activePage.classList.add('active');
-            }
-
-            // Update navigation active class
+            // Remove active state from all nav links
             document.querySelectorAll('nav a').forEach(link => {
                 link.classList.remove('nav-active');
             });
-            const activeNav = document.getElementById('nav-' + pageId);
-            if (activeNav) {
-                activeNav.classList.add('nav-active');
+
+            // Show the selected page and set nav link active
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                targetPage.querySelector('.page-content-wrapper, .home-content').classList.add('animate-in');
+                document.getElementById('nav-' + pageId).classList.add('nav-active');
             }
         }
 
-        // Set the initial active page to 'home' and nav link
+        // Initial call to set the active page on load
         document.addEventListener('DOMContentLoaded', () => {
-            showPage('home');
+            // Get the ID from the URL hash, default to 'home'
+            const hashId = window.location.hash.substring(1) || 'home';
+            showPage(hashId);
+        });
+
+        // Update URL hash when page changes (optional, for history/bookmarks)
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const pageId = link.id.replace('nav-', '');
+                history.pushState(null, '', '#' + pageId);
+            });
         });
     </script>
 </body>
